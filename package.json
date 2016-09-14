@@ -1,0 +1,59 @@
+{
+  "name": "redux-auth0",
+  "version": "0.0.0",
+  "description": "Redux authentication example",
+  "scripts": {
+    "start": "node server.js",
+    "sass": "node-sass --include-path ./node_modules --include-path ./public sass/main.scss src/main.css && blessc -f src/main.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/auth0-blog/redux-auth0.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/auth0-blog/redux-auth0/issues"
+  },
+  "homepage": "https://auth0.com",
+  "dependencies": {
+    "@sketchpixy/rubix": "^2.9.8",
+    "babel-polyfill": "^6.3.14",
+    "bless": "^3.0.3",
+    "file": "^0.2.2",
+    "file-loader": "^0.9.0",
+    "humps": "^0.6.0",
+    "isomorphic-fetch": "^2.1.1",
+    "json-loader": "^0.5.4",
+    "jwt-decode": "^2.0.1",
+    "lodash": "^4.0.0",
+    "node-sass": "^3.8.0",
+    "normalizr": "^2.0.0",
+    "path": "^0.12.7",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "react-redux": "^4.2.1",
+    "react-router": "^2.0.0",
+    "react-router-redux": "^4.0.0-rc.1",
+    "redux": "^3.2.1",
+    "redux-logger": "^2.4.0",
+    "redux-thunk": "^1.0.3",
+    "url-loader": "^0.5.7"
+  },
+  "devDependencies": {
+    "babel-core": "^6.3.15",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-react-hmre": "^1.1.1",
+    "concurrently": "^0.1.1",
+    "css-loader": "^0.24.0",
+    "express": "^4.13.3",
+    "redux-devtools": "^3.1.0",
+    "redux-devtools-dock-monitor": "^1.0.1",
+    "redux-devtools-log-monitor": "^1.0.3",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.9.11",
+    "webpack-dev-middleware": "^1.2.0",
+    "webpack-hot-middleware": "^2.9.1"
+  }
+}

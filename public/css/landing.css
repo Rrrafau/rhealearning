@@ -1,0 +1,14 @@
+.h2welcome {
+  margin-top: 0px;
+  font-weight: lighter;
+}
+.leengo-textarea.form-control {
+  font-weight: lighter;
+  font-size: 1.5em;
+  background: #fffae0;
+  border-style: dashed;
+  border-width: 1px;
+  max-width: 100%;
+  resize: none;
+  margin-bottom: 16px !important;
+}
