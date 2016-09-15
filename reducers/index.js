@@ -50,8 +50,8 @@ function prepareResults(slides) {
     for(let i = 0; i < slides[key].length; i++) {
       if(slides[key][i].hidden) {
         results.total++;
-        
-        if(slides[key][i].answer === slides[key][i].word) {
+
+        if(slides[key][i].answer.toLowerCase() === slides[key][i].word.toLowerCase()) {
           results.right++;
           results.correct.push(Object.assign([], slides[key]));
         }
