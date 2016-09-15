@@ -170,7 +170,7 @@ class TextArea extends React.Component {
                     <Col xs={12}>
                       <br/>
                       <div>
-                        <Button outlined onClick={this.processText} bsStyle='darkgreen'>Create Test!</Button>
+                        <Button outlined onClick={this.processText} bsStyle='darkgreen'>Create Test! (Text will be randomized)</Button>
                       </div>
                       <br/>
                     </Col>
