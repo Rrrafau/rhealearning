@@ -127,7 +127,7 @@ class TextArea extends React.Component {
     challenges = challenges.filter(function(n){ return n != undefined });
 
     challenges = this.shuffleArray(challenges)
-
+    alert('hi')
     this.props.createTestSlides(challenges)
     browserHistory.push('slides/1')
   }
