@@ -117,7 +117,7 @@ class Results extends React.Component {
                               if(word.answer !== word.word) {
                                 return (
                                   <span key={w+'_'+s}>
-                                    <span className="result-incorrect">{word.answer.toLowerCase() || 'no answer given'}</span>
+                                    <span className="result-incorrect">{word.answer || 'no answer given'}</span>
                                     <span className="result-correction"> instead of </span>
                                     <span className="result-correct">{word.value} </span>
                                   </span>
