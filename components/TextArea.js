@@ -154,7 +154,7 @@ class TextArea extends React.Component {
                   <Row>
                       <FormGroup>
                         <Col sm={12}>
-                          <FormControl componentClass='TextArea' defaultValue={this.props.rawText} onKeyUp={this.createText} className="leengo-textarea" rows='15'
+                          <FormControl componentClass='TextArea' defaultValue={this.props.rawText} onChange={this.createText} onKeyUp={this.createText} className="leengo-textarea" rows='15'
                               placeholder="This area is for the text that will be turned into an interactive language test!
                                             Feel free to paste whatever you want as long as it's in plain english.
                                             We will take care of the rest! If you can't think of any good sources of
