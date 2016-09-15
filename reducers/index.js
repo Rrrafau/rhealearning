@@ -10,6 +10,7 @@ const initialState = {
   error: '',
   slides: [],
   rawText: '',
+  hintsUsed: 0,
   results: {
     wrong: 0,
     right: 0,

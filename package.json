@@ -37,7 +37,8 @@
     "redux": "^3.2.1",
     "redux-logger": "^2.4.0",
     "redux-thunk": "^1.0.3",
-    "url-loader": "^0.5.7"
+    "url-loader": "^0.5.7",
+    "vex-js": "^3.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.3.15",

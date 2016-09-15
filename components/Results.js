@@ -5,15 +5,10 @@ import {
   Row,
   Col,
   Grid,
-  Icon,
-  Link,
-  Form,
   Panel,
   Button,
+  Progress,
   PanelBody,
-  FormGroup,
-  PanelHeader,
-  FormControl,
   PanelFooter,
   PanelContainer,
 } from '@sketchpixy/rubix'
@@ -37,55 +32,90 @@ class Results extends React.Component {
       let result = Math.floor(1*(this.props.results.right/this.props.results.total)*100)
       if(result < 20) {
         return (
-          <span>
-            <span className="percent-20">{result}%</span>...
-            <span className="percent-20"> You need to try harder, {this.props.profile.name}!</span>
-          </span>
+          <div>
+            <h1>Your score is
+              <span>
+                <span className="percent-20">{result}%</span>...
+                <span className="percent-20"> You need to try harder, {this.props.profile.name}!</span>
+              </span>
+            </h1>
+            <Progress id='demo-progress' value={result} color='#e85f5f'/>
+          </div>
         )
       }
       else if(result < 40) {
         return (
-          <span>
-            <span className="percent-40">{result}%</span>. Keep practicing, {this.props.profile.given_name}!
-          </span>
+          <div>
+            <h1>Your score is
+              <span>
+                <span className="percent-40">{result}%</span>. Keep practicing, {this.props.profile.given_name}!
+              </span>
+            </h1>
+            <Progress id='demo-progress' value={result} color='#ff8031'/>
+          </div>
         )
       }
       else if(result < 60) {
         return (
-          <span>
-            <span className="percent-60">{result}%</span>. Not so bad, {this.props.profile.given_name}!
-          </span>
+          <div>
+            <h1>Your score is
+              <span>
+                <span className="percent-60">{result}%</span>. Not so bad, {this.props.profile.given_name}!
+              </span>
+            </h1>
+            <Progress id='demo-progress' value={result} color='#8cc8dc'/>
+          </div>
         )
       }
       else if(result < 80) {
         return (
-          <span>
-            <span className="percent-80">{result}%</span>! Well done, {this.props.profile.given_name}!
-          </span>
+          <div>
+            <h1>Your score is
+              <span>
+                <span className="percent-80">{result}%</span>! Well done, {this.props.profile.given_name}!
+              </span>
+            </h1>
+            <Progress id='demo-progress' value={result} color='#61af61'/>
+          </div>
         )
       }
       else if(result < 100) {
         return (
-          <span>
-            <span className="percent-100">{result}%</span>! Awesome result, {this.props.profile.given_name}!
-          </span>
+          <div>
+            <h1>Your score is
+              <span>
+                <span className="percent-100">{result}%</span>! Awesome result, {this.props.profile.given_name}!
+              </span>
+            </h1>
+            <Progress id='demo-progress' value={result} color='#61af61'/>
+          </div>
         )
       }
       else if(result === 100) {
         return (
-          <span>
-            <span className="percent-100">{result}%</span>!!!
-            <span className="percent-100"> Fucking perfect, {this.props.profile.given_name}!!!</span>
-          </span>
+          <div>
+            <h1>Your score is
+              <span>
+                <span className="percent-100">{result}%</span>!!!
+                <span className="percent-100"> Fucking perfect, {this.props.profile.given_name}!!!</span>
+              </span>
+            </h1>
+            <Progress id='demo-progress' value={result} color='#61af61'/>
+          </div>
         )
       }
     }
     else {
       return (
-        <span>
-          <span className="percent-20">0%</span>... Did you even
-          <span className="percent-20"> try</span>, {this.props.profile.given_name}?
-        </span>
+        <div>
+          <h1>Your score is
+            <span>
+              <span className="percent-20">0%</span>... Did you even
+              <span className="percent-20"> try</span>, {this.props.profile.given_name}?
+            </span>
+          </h1>
+          <Progress id='demo-progress' value={result} color='#e85f5f'/>
+        </div>
       )
     }
   }
@@ -103,8 +133,7 @@ class Results extends React.Component {
                   <Col sm={12} className="results-overview">
                     <h2>You've entered <span className="result-correct">{results.right} </span>
                       words <span className="result-correct">correctly</span> out of <span className="results-count">{results.total}</span> in total.</h2>
-
-                    <h1>Your score is {this.getPercenage()}</h1>
+                    {this.getPercenage()}
 
                     <h3 className="review-answers">Review your answers:</h3>
                     <hr />
@@ -113,7 +142,7 @@ class Results extends React.Component {
                       return (
                         <p className="results-p" key={s}>{'"'}
                           {sentence.map(function(word, w) {
-                            if(word.answer) {
+                            if(word.hidden) {
                               if(word.answer !== word.word) {
                                 return (
                                   <span key={w+'_'+s}>

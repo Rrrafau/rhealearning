@@ -8,6 +8,7 @@ import {
   Icon,
   Form,
   Panel,
+  Modal,
   Button,
   PanelBody,
   FormGroup,
@@ -16,8 +17,12 @@ import {
   PanelFooter,
   PanelContainer,
 } from '@sketchpixy/rubix';
-import { setEntryTextValue, createTestSlides } from '../actions';
+import { setEntryTextValue, createTestSlides } from '../actions'
 import prepositions from './../wordpackets/prepositions.json'
+import linking from './../wordpackets/linkingverbs.json'
+import helping from './../wordpackets/helpingverbs.json'
+import irregulars from './../wordpackets/irregulars.json'
+import './../public/css/textarea.css'
 
 class TextArea extends React.Component {
   constructor(props) {
@@ -26,6 +31,30 @@ class TextArea extends React.Component {
     this.createText = this.createText.bind(this)
     this.shuffleArray = this.shuffleArray.bind(this)
     this.createHintsArray = this.createHintsArray.bind(this)
+    this.close = this.close.bind(this)
+    this.open = this.open.bind(this)
+    this.createPrepositions = this.createPrepositions.bind(this)
+    this.createIrregulars = this.createIrregulars.bind(this)
+    this.createHelpingVerbs = this.createHelpingVerbs.bind(this)
+    this.createLinkingVerbs = this.createLinkingVerbs.bind(this)
+    this.createIrregularChallenges = this.createIrregularChallenges.bind(this)
+    this.createRegularChallenges = this.createRegularChallenges.bind(this)
+
+    this.state = {
+      showModal: false,
+      linking: linking,
+      helping: helping,
+      irregulars: irregulars,
+      prepositions: prepositions,
+    }
+  }
+
+  close() {
+    this.setState({ showModal: false });
+  }
+
+  open() {
+    this.setState({ showModal: true });
   }
 
   createText(event) {
@@ -66,24 +95,64 @@ class TextArea extends React.Component {
     return hints
   }
 
-  processText(event) {
-    const terms = prepositions.list
-    let text = this.props.rawText
+  createPrepositions(event) {
+    this.processText(event, 'prepositions')
+  }
 
-    if(!text) {
-      return
-    }
+  createLinkingVerbs(event) {
+    this.processText(event, 'linking')
+  }
 
-    let sentences = text.split('.')
+  createHelpingVerbs(event) {
+    this.processText(event, 'helping')
+  }
 
-    let wordsAndBlanks = sentences.map((sentence) => {
-      let words = sentence.split(' ')
+  createIrregulars(event) {
+    this.processText(event, 'irregulars')
+  }
 
-      return {
-        words: words
+  createIrregularChallenges(wordsAndBlanks, terms) {
+
+    let challenges = wordsAndBlanks.map((wab) => {
+      let sentence = []
+      let blanks = 0
+
+      for(let w = 0; w < wab.words.length; w++) {
+        if(terms[wab.words[w]]) {
+
+          blanks++;
+          sentence.push({
+            value: wab.words[w].toLowerCase(),
+            hidden: true,
+            word: wab.words[w],
+            hints: [terms[wab.words[w]]],
+            answer: '',
+            typing: '',
+            last: w === wab.words.length-1 ? true : false
+          })
+        }
+        else {
+          sentence.push({
+            value: wab.words[w],
+            hidden: false,
+            last: w === wab.words.length-1 ? true : false
+          })
+        }
       }
-    })
 
+      if(blanks) {
+        return sentence
+      }
+      else {
+        return undefined
+      }
+
+    });
+    console.log(challenges);
+    return challenges
+  }
+
+  createRegularChallenges(wordsAndBlanks, terms) {
     let challenges = wordsAndBlanks.map((wab) => {
       let sentence = []
       let blanks = 0
@@ -124,11 +193,45 @@ class TextArea extends React.Component {
       }
 
     });
-    challenges = challenges.filter(function(n){ return n != undefined });
+
+    return challenges
+  }
+
+  processText(event, wordpacket) {
+    const terms = this.state[wordpacket].list
+    let text = this.props.rawText
+    let challenges = []
+
+    if(!text) {
+      return
+    }
+
+    let sentences = text.split('.')
+
+    let wordsAndBlanks = sentences.map((sentence) => {
+      let words = sentence.split(' ')
+
+      return {
+        words: words
+      }
+    })
+
+    if(wordpacket !== 'irregulars') {
+      challenges = this.createRegularChallenges(wordsAndBlanks, terms)
+    }
+    else {
+      challenges = this.createIrregularChallenges(wordsAndBlanks, terms)
+    }
+    challenges = challenges.filter(function(n){ return n != undefined })
 
     challenges = this.shuffleArray(challenges)
-    this.props.createTestSlides(challenges)
-    browserHistory.push('slides/1')
+    if(challenges.length) {
+      this.props.createTestSlides(challenges)
+      browserHistory.push('slides/1')
+    }
+    else {
+      alert('We could not generate any tests :(, Please use differnt text or select more paragraphs.')
+    }
   }
 
   render() {
@@ -151,16 +254,16 @@ class TextArea extends React.Component {
               <PanelBody>
                 <Grid>
                   <Row>
-                      <FormGroup>
-                        <Col sm={12}>
-                          <FormControl componentClass='TextArea' defaultValue={this.props.rawText} onChange={this.createText} className="leengo-textarea" rows='15'
-                              placeholder="This area is for the text that will be turned into an interactive language test!
-                                            Feel free to paste whatever you want as long as it's in plain english.
-                                            We will take care of the rest! If you can't think of any good sources of
-                                            articles, try wikipedia.org or BBC News. Or perhaps you have a favorite
-                                            eBook which you would like to turn into a quick language challenge?" />
-                        </Col>
-                      </FormGroup>
+                    <FormGroup>
+                      <Col sm={12}>
+                        <FormControl componentClass='TextArea' defaultValue={this.props.rawText} onChange={this.createText} className="leengo-textarea" rows='15'
+                            placeholder="This area is for the text that will be turned into an interactive language test!
+                                          Feel free to paste whatever you want as long as it's in plain english.
+                                          We will take care of the rest! If you can't think of any good sources of
+                                          articles, try wikipedia.org or BBC News. Or perhaps you have a favorite
+                                          eBook which you would like to turn into a quick language challenge?" />
+                      </Col>
+                    </FormGroup>
                   </Row>
                 </Grid>
               </PanelBody>
@@ -170,7 +273,7 @@ class TextArea extends React.Component {
                     <Col xs={12}>
                       <br/>
                       <div>
-                        <Button outlined onClick={this.processText} bsStyle='darkgreen'>Create Test! (Text will be randomized)</Button>
+                        <Button outlined onClick={this.open} bsStyle='darkgreen'>Create Test! (Text will be randomized)</Button>
                       </div>
                       <br/>
                     </Col>
@@ -180,6 +283,67 @@ class TextArea extends React.Component {
             </Panel>
           </Form>
         </PanelContainer>
+        <Modal className="custom-modal" show={this.state.showModal} onHide={this.close}>
+          <Modal.Header closeButton>
+            <Modal.Title>Choose what you want to train:</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Grid>
+              <Row>
+                <Col xs={12}>
+                  <FormGroup>
+                    <Button bsStyle='blue' onClick={this.createPrepositions} className="learnenglish-btn">Prepositions</Button>
+                    <p className="learnenglish-sample">(e.g. as, at, of, aboard, during, towards, etc.)</p>
+                  </FormGroup>
+                </Col>
+                <Col xs={12}>
+                  <FormGroup>
+                    <Button bsStyle='green' onClick={this.createIrregulars} className="learnenglish-btn">Irregular Verbs</Button>
+                    <p className="learnenglish-sample">(e.g. what is the past participle of "seek")</p>
+                  </FormGroup>
+                </Col>
+                <Col xs={12}>
+                  <FormGroup>
+                    <Button bsStyle='orange75' onClick={this.createLinkingVerbs} className="learnenglish-btn">Linking Verbs</Button>
+                    <p className="learnenglish-sample">(forms of: be, sensory verbs, etc.)</p>
+                  </FormGroup>
+                </Col>
+                <Col xs={12}>
+                  <FormGroup>
+                    <Button bsStyle='brownishgray75' onClick={this.createHelpingVerbs} className="learnenglish-btn">Helping verbs</Button>
+                    <p className="learnenglish-sample">(forms of: be, have, do, does, should, would, etc.)</p>
+                  </FormGroup>
+                </Col>
+                <Col xs={12}>
+                  <FormGroup>
+                    <Button bsStyle='gray75' disabled className="learnenglish-btn">Personalized list (coming soon)</Button>
+                    <p className="learnenglish-sample">(personalized tests built by our hard working robots)</p>
+                  </FormGroup>
+                </Col>
+                <Col xs={12}>
+                  <FormGroup>
+                    <div className="robots">
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot-1.png')} />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot.png')} />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot-1.png')} />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot.png')} />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot-1.png')} />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot.png')} />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot-1.png')} />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot.png')} />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot-1.png')} />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot.png')} />
+                    </div>
+                    <h3 className="pull-right coming-soon">...AND MORE COMING SOON!</h3>
+                  </FormGroup>
+                </Col>
+              </Row>
+            </Grid>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.close}>Close</Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     )
   }

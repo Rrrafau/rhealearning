@@ -49,8 +49,8 @@ class Slides extends React.Component {
     this.props.typeTestAnswer(answer)
   }
 
-  showHints() {
-
+  showHints(e) {
+    console.log('show hints!', e.target.onclick);
   }
 
   navigateNext() {
@@ -96,7 +96,10 @@ class Slides extends React.Component {
                 className="test-input-inline"
                 onChange={that.handleChange}
               />
-            <OverlayTrigger overlay={
+            <OverlayTrigger
+              trigger="click"
+              onClick={that.showHints}
+              overlay={
                 <Popover title='Hints:' id='popover'>
                   {
                     that.props.slides[that.props.params.id-1][i].hints.map(function(hint) {
