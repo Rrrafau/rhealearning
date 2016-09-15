@@ -88,7 +88,7 @@ function tests(state = initialState, action) {
           results: results
         })
     case ActionTypes.TYPE_TEST_ANSWER:
-      slides[parseInt(action.answer.question, 10)][parseInt(action.answer.key, 10)].typing = action.answer.answer
+      slides[parseInt(action.answer.question, 10)][parseInt(action.answer.key, 10)].typing = action.answer.answer.toLowerCase()
 
       return Object.assign({}, state, {
         slides: slides
