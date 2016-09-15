@@ -67,68 +67,68 @@ class TextArea extends React.Component {
   }
 
   processText(event) {
-    // const terms = prepositions.list
-    // let text = this.props.rawText
-    //
-    // if(!text) {
-    //   return
-    // }
-    //
-    // let sentences = text.split('.')
-    //
-    // let wordsAndBlanks = sentences.map((sentence) => {
-    //   let words = sentence.split(' ')
-    //
-    //   return {
-    //     words: words
-    //   }
-    // })
-    //
-    // let challenges = wordsAndBlanks.map((wab) => {
-    //   let sentence = []
-    //   let blanks = 0
-    //
-    //   for(let w = 0; w < wab.words.length; w++) {
-    //     let indexOf = terms.indexOf(wab.words[w])
-    //
-    //     if(indexOf >= 0) {
-    //       blanks++;
-    //
-    //       sentence.push({
-    //         value: wab.words[w],
-    //         hidden: true,
-    //         word: terms[indexOf],
-    //         hints: this.createHintsArray(terms, {
-    //           index: indexOf,
-    //           value: terms[indexOf]
-    //         }),
-    //         answer: '',
-    //         typing: '',
-    //         last: w === wab.words.length-1 ? true : false
-    //       })
-    //     }
-    //     else {
-    //       sentence.push({
-    //         value: wab.words[w],
-    //         hidden: false,
-    //         last: w === wab.words.length-1 ? true : false
-    //       })
-    //     }
-    //   }
-    //
-    //   if(blanks) {
-    //     return sentence
-    //   }
-    //   else {
-    //     return undefined
-    //   }
-    //
-    // });
-    // challenges = challenges.filter(function(n){ return n != undefined });
-    //
-    // challenges = this.shuffleArray(challenges)
-    // alert('hi')
-    // this.props.createTestSlides(challenges)
+    const terms = prepositions.list
+    let text = this.props.rawText
+
+    if(!text) {
+      return
+    }
+
+    let sentences = text.split('.')
+
+    let wordsAndBlanks = sentences.map((sentence) => {
+      let words = sentence.split(' ')
+
+      return {
+        words: words
+      }
+    })
+
+    let challenges = wordsAndBlanks.map((wab) => {
+      let sentence = []
+      let blanks = 0
+
+      for(let w = 0; w < wab.words.length; w++) {
+        let indexOf = terms.indexOf(wab.words[w])
+
+        if(indexOf >= 0) {
+          blanks++;
+
+          sentence.push({
+            value: wab.words[w],
+            hidden: true,
+            word: terms[indexOf],
+            hints: this.createHintsArray(terms, {
+              index: indexOf,
+              value: terms[indexOf]
+            }),
+            answer: '',
+            typing: '',
+            last: w === wab.words.length-1 ? true : false
+          })
+        }
+        else {
+          sentence.push({
+            value: wab.words[w],
+            hidden: false,
+            last: w === wab.words.length-1 ? true : false
+          })
+        }
+      }
+
+      if(blanks) {
+        return sentence
+      }
+      else {
+        return undefined
+      }
+
+    });
+    challenges = challenges.filter(function(n){ return n != undefined });
+
+    challenges = this.shuffleArray(challenges)
+    alert('hi')
+    this.props.createTestSlides(challenges)
     browserHistory.push('slides/1')
   }
 
