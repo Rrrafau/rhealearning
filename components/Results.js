@@ -113,7 +113,7 @@ class Results extends React.Component {
                       return (
                         <p className="results-p" key={s}>{'"'}
                           {sentence.map(function(word, w) {
-                            if(word.hidden) {
+                            if(word.answer) {
                               if(word.answer !== word.word) {
                                 return (
                                   <span key={w+'_'+s}>

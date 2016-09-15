@@ -95,7 +95,7 @@ class TextArea extends React.Component {
           blanks++;
 
           sentence.push({
-            value: wab.words[w],
+            value: wab.words[w].toLowerCase(),
             hidden: true,
             word: terms[indexOf],
             hints: this.createHintsArray(terms, {

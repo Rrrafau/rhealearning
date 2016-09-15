@@ -76,7 +76,7 @@ function tests(state = initialState, action) {
     case ActionTypes.SUBMIT_TEST_ANSWER:
       for(let key in slides) {
         for(let k = 0; k < slides[key].length; k++) {
-          slides[key][k].answer = slides[key][k].typing
+          slides[key][k].answer = slides[key][k].typing ? slides[key][k].typing.toLowerCase() : ''
         }
       }
       return Object.assign({}, state, {
