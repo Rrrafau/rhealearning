@@ -323,18 +323,18 @@ class TextArea extends React.Component {
                 <Col xs={12}>
                   <FormGroup>
                     <div className="robots">
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot-1.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot-1.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot-1.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot-1.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot-1.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot.png')} />
+                      <img style={{opacity: 0.5}} width="50px" src={require('../public/imgs/common/robot-1.png')} />
+                      <img style={{opacity: 0.5}} width="50px" src={require('../public/imgs/common/robot.png')} />
+                      <img style={{opacity: 0.5}} width="50px" src={require('../public/imgs/common/robot-1.png')} />
+                      <img style={{opacity: 0.5}} width="50px" src={require('../public/imgs/common/robot.png')} />
+                      <img style={{opacity: 0.5}} width="50px" src={require('../public/imgs/common/robot-1.png')} />
+                      <img style={{opacity: 0.5}} width="50px" src={require('../public/imgs/common/robot.png')} />
+                      <img style={{opacity: 0.5}} width="50px" src={require('../public/imgs/common/robot-1.png')} />
+                      <img style={{opacity: 0.5}} width="50px" src={require('../public/imgs/common/robot.png')} />
+                      <img style={{opacity: 0.5}} width="50px" src={require('../public/imgs/common/robot-1.png')} />
+                      <img style={{opacity: 0.5}} width="50px" src={require('../public/imgs/common/robot.png')} />
                     </div>
-                    <h3 className="pull-right coming-soon">...OUR ROBOTS ARE WORKING TIRELESSLY TO ADD MORE OPTIONS! STAY TUNED!</h3>
+                    <h3 className="coming-soon">OUR ROBOTS ARE WORKING TIRELESSLY TO ADD MORE OPTIONS! STAY TUNED!</h3>
                   </FormGroup>
                 </Col>
               </Row>
