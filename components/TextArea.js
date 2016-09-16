@@ -334,7 +334,7 @@ class TextArea extends React.Component {
                       <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot-1.png')} />
                       <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot.png')} />
                     </div>
-                    <h3 className="pull-right coming-soon">...AND MORE COMING SOON!</h3>
+                    <h3 className="pull-right coming-soon">...OUR ROBOTS ARE WORKING TIRELESSLY TO ADD MORE OPTIONS! STAY TUNED!</h3>
                   </FormGroup>
                 </Col>
               </Row>
