@@ -35,7 +35,7 @@ class Results extends React.Component {
           <div>
             <h1>Your score is
               <span>
-                <span className="percent-20">{result}%</span>...
+                <span className="percent-20"> {result}%</span>...
                 <span className="percent-20"> You need to try harder, {this.props.profile.name}!</span>
               </span>
             </h1>
@@ -48,7 +48,7 @@ class Results extends React.Component {
           <div>
             <h1>Your score is
               <span>
-                <span className="percent-40">{result}%</span>. Keep practicing, {this.props.profile.given_name}!
+                <span className="percent-40"> {result}%</span>. Keep practicing, {this.props.profile.given_name}!
               </span>
             </h1>
             <Progress id='demo-progress' value={result} color='#ff8031'/>
@@ -60,7 +60,7 @@ class Results extends React.Component {
           <div>
             <h1>Your score is
               <span>
-                <span className="percent-60">{result}%</span>. Not so bad, {this.props.profile.given_name}!
+                <span className="percent-60"> {result}%</span>. Not so bad, {this.props.profile.given_name}!
               </span>
             </h1>
             <Progress id='demo-progress' value={result} color='#8cc8dc'/>
@@ -72,7 +72,7 @@ class Results extends React.Component {
           <div>
             <h1>Your score is
               <span>
-                <span className="percent-80">{result}%</span>! Well done, {this.props.profile.given_name}!
+                <span className="percent-80"> {result}%</span>! Well done, {this.props.profile.given_name}!
               </span>
             </h1>
             <Progress id='demo-progress' value={result} color='#61af61'/>
@@ -84,7 +84,7 @@ class Results extends React.Component {
           <div>
             <h1>Your score is
               <span>
-                <span className="percent-100">{result}%</span>! Awesome result, {this.props.profile.given_name}!
+                <span className="percent-100"> {result}%</span>! Awesome result, {this.props.profile.given_name}!
               </span>
             </h1>
             <Progress id='demo-progress' value={result} color='#61af61'/>
@@ -96,7 +96,7 @@ class Results extends React.Component {
           <div>
             <h1>Your score is
               <span>
-                <span className="percent-100">{result}%</span>!!!
+                <span className="percent-100"> {result}%</span>!!!
                 <span className="percent-100"> Fucking perfect, {this.props.profile.given_name}!!!</span>
               </span>
             </h1>
@@ -110,7 +110,7 @@ class Results extends React.Component {
         <div>
           <h1>Your score is
             <span>
-              <span className="percent-20">0%</span>... Did you even
+              <span className="percent-20"> 0%</span>... Did you even
               <span className="percent-20"> try</span>, {this.props.profile.given_name}?
             </span>
           </h1>
