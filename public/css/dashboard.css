@@ -19,3 +19,14 @@
 .detailsAvg {
   float: left;
 }
+.past-combined {
+  display: inline;
+  width: 85px;
+}
+.past-combined-text {
+  color: #8bb0c7;
+  font-style: italic;
+}
+.past-combined-text b {
+  color: #236188;
+}

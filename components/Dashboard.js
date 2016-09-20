@@ -43,6 +43,7 @@ class Dashboard extends React.Component {
     this.setGraphs = this.setGraphs.bind(this)
     this.setTimeline = this.setTimeline.bind(this)
     this.calculateTotals = this.calculateTotals.bind(this)
+    this.selectPastCombined = this.selectPastCombined.bind(this)
     this.state = {
       data: null, // seleted data type not group by interval chunks
       chartData: null, // currently shown data
@@ -60,6 +61,7 @@ class Dashboard extends React.Component {
       irregulars: true,
       helping: true,
       combine: false,
+      pastCombined: 0,
       graphs: [],
       totals: {
         totalAvgPrepositions: 0,
@@ -81,6 +83,29 @@ class Dashboard extends React.Component {
     option[e.target.name] = e.target.value
 
     this.setChartOption(option, this.loadData)
+  }
+
+  selectPastCombined(e) {
+    let pastCombined = this.getPastCombined(parseInt(e.target.value, 10))
+
+    this.setState({pastCombined})
+  }
+
+  getPastCombined(value) {
+    let data = this.state.data
+    let scores = []
+    let limit = new Date(moment().subtract(value || 7, 'days'))
+
+    _.each(data, function(datum) {
+      if(datum.date <= limit) {
+        scores.push(datum.score)
+      }
+    })
+
+    let sum = scores.reduce((a, b) => a + b, 0)
+    let avg = parseFloat((sum/scores.length).toFixed(2))
+
+    return avg || 0
   }
 
   setGraphs() {
@@ -173,7 +198,8 @@ class Dashboard extends React.Component {
     this.setState({data}, function() {
       let totals = this.calculateTotals()
       this.setState({chunkedData, chartData, graphs, totals}, function() {
-        console.log(this.state)
+        let pastCombined = this.getPastCombined()
+        this.setState({pastCombined})
       })
     })
   }
@@ -217,6 +243,7 @@ class Dashboard extends React.Component {
 
     return chartData
   }
+
   calculateTotals() {
     let data = this.state.data
     let totals = {
@@ -251,16 +278,16 @@ class Dashboard extends React.Component {
     results.totalPrepositions = totals.prepositions.length
     results.totals = totals.all.length
 
-    results.totalAvgHelping = Math.floor((totals.helping.reduce((a, b) => a + b, 0)
-      / results.totalHelping))
-    results.totalAvgLinking = Math.floor((totals.linking.reduce((a, b) => a + b, 0)
-      / results.totalLinking))
-    results.totalAvgIrregulars = Math.floor((totals.irregulars.reduce((a, b) => a + b, 0)
-      / results.totalIrregulars))
-    results.totalAvgPrepositions = Math.floor((totals.prepositions.reduce((a, b) => a + b, 0)
-      / results.totalPrepositions))
-    results.totalsAvg = Math.floor((totals.all.reduce((a, b) => a + b, 0)
-      / results.totals))
+    results.totalAvgHelping = parseFloat((totals.helping.reduce((a, b) => a + b, 0)
+      / results.totalHelping).toFixed(2))
+    results.totalAvgLinking = parseFloat((totals.linking.reduce((a, b) => a + b, 0)
+      / results.totalLinking).toFixed(2))
+    results.totalAvgIrregulars = parseFloat((totals.irregulars.reduce((a, b) => a + b, 0)
+      / results.totalIrregulars).toFixed(2))
+    results.totalAvgPrepositions = parseFloat((totals.prepositions.reduce((a, b) => a + b, 0)
+      / results.totalPrepositions).toFixed(2))
+    results.totalsAvg = parseFloat((totals.all.reduce((a, b) => a + b, 0)
+      / results.totals).toFixed(2))
 
     for(let r in results) {
       if(!results[r]) {
@@ -358,7 +385,14 @@ class Dashboard extends React.Component {
                         </Col>
                         <Col xs={6}><h4>Average Results:</h4>
                           <div className="combinedAvg">Combined Average:&nbsp;
-                            <span className="avgResult">{this.state.totals.totalsAvg}%</span>
+                            <span className="avgResult">{this.state.totals.totalsAvg}%</span>&nbsp;<br />
+                            <div className="past-combined-text">(was <b>{this.state.pastCombined}%</b> one&nbsp;
+                            <FormControl name="type" onChange={this.selectPastCombined} className="past-combined" componentClass='select'>
+                              <option value="1">day</option>
+                              <option selected value="7">week</option>
+                              <option value="31">month</option>
+                              <option value="365">year</option>
+                            </FormControl> ago)</div>
                           </div>
                           <div className="detailsAvgContainer">
                             <span className="detailsAvg">Prepositions:&nbsp;
