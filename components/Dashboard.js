@@ -28,7 +28,7 @@ import {
   PanelContainer,
 } from '@sketchpixy/rubix'
 import {
-  getResultspronouns_reflexive
+  getResults
 } from '../actions';
 
 class TestsTable extends React.Component {
@@ -149,6 +149,19 @@ class Dashboard extends React.Component {
       combine: false,
       pastCombined: 0,
       graphs: [],
+      categories: [
+        'prepositions',
+        'linking',
+        'helping',
+        'irregulars',
+        'pronouns_relative',
+        'pronouns_personal',
+        'pronouns_interrogative',
+        'pronouns_possesive',
+        'pronouns_reflexive',
+        'pronouns_demonstrative',
+        'pronouns_indefinite',
+      ],
       totals: {
         totalAvgPronounsDemonstrative: 0,
         totalPronounsDemonstrative: 0,
@@ -172,19 +185,6 @@ class Dashboard extends React.Component {
         totalLinking: 0,
         totalAvgHelping: 0,
         totalHelping: 0,
-        categories: [
-          'prepositions',
-          'linking',
-          'helping',
-          'irregulars',
-          'pronouns_relative',
-          'pronouns_personal',
-          'pronouns_interrogative',
-          'pronouns_possesive',
-          'pronouns_reflexive',
-          'pronouns_demonstrative',
-          'pronouns_indefinite',
-        ]
       }
     }
   }
@@ -221,7 +221,7 @@ class Dashboard extends React.Component {
   }
 
   setGraphs() {
-    let categories = this.state.totals.categories
+    let categories = this.state.categories
     let graphs = []
     let that = this
     if(this.state.combine) {
@@ -306,7 +306,7 @@ class Dashboard extends React.Component {
     let chartData = this.setChartData(chunkedData)
 
     let graphs = this.setGraphs()
-
+    console.log(chartData);
     this.setState({data}, function() {
       let totals = this.calculateTotals()
       this.setState({chunkedData, chartData, graphs, totals}, function() {
@@ -317,13 +317,14 @@ class Dashboard extends React.Component {
   }
 
   setChartData(chunkedData) {
+    let that = this
     let chartData = _.map(chunkedData, function(datum, key) {
       let newDatum = {};
 
       // totals for chunk
       let sum = datum.map(function(d) {return d.score}).reduce((a, b) => a + b, 0)
       let avg = Math.floor(sum / datum.length)
-      let categories = this.state.totals.categories
+      let categories = that.state.categories
 
       newDatum.score = avg
       newDatum.date = new Date(key)
@@ -585,25 +586,25 @@ class Dashboard extends React.Component {
                             <span className="avgResult">{this.state.totals.totalAvgLinking}%</span>,&nbsp;
                           </span>
                           <span className="detailsAvg">Helping:&nbsp;
-                            <span className="avgResult">{this.state.totals.totalAvgHelping}%</span>
+                            <span className="avgResult">{this.state.totals.totalAvgHelping}%</span>,&nbsp;
                           </span>
                           <span className="detailsAvg">Personal:&nbsp;
-                            <span className="avgResult">{this.state.totals.totalAvgPronounsPersonal}%</span>
+                            <span className="avgResult">{this.state.totals.totalAvgPronounsPersonal}%</span>,&nbsp;
                           </span>
                           <span className="detailsAvg">Reflexive:&nbsp;
-                            <span className="avgResult">{this.state.totals.totalAvgPronounsReflexive}%</span>
+                            <span className="avgResult">{this.state.totals.totalAvgPronounsReflexive}%</span>,&nbsp;
                           </span>
                           <span className="detailsAvg">Possesive:&nbsp;
-                            <span className="avgResult">{this.state.totals.totalAvgPronounsPossesive}%</span>
+                            <span className="avgResult">{this.state.totals.totalAvgPronounsPossesive}%</span>,&nbsp;
                           </span>
                           <span className="detailsAvg">Interrogative:&nbsp;
-                            <span className="avgResult">{this.state.totals.totalAvgPronounsInterrogative}%</span>
+                            <span className="avgResult">{this.state.totals.totalAvgPronounsInterrogative}%</span>,&nbsp;
                           </span>
                           <span className="detailsAvg">Indefinite:&nbsp;
-                            <span className="avgResult">{this.state.totals.totalAvgPronounsIndefinite}%</span>
+                            <span className="avgResult">{this.state.totals.totalAvgPronounsIndefinite}%</span>,&nbsp;
                           </span>
                           <span className="detailsAvg">Demonstrative:&nbsp;
-                            <span className="avgResult">{this.state.totals.totalAvgPronounsDemonstrative}%</span>
+                            <span className="avgResult">{this.state.totals.totalAvgPronounsDemonstrative}%</span>,&nbsp;
                           </span>
                           <span className="detailsAvg">Relative:&nbsp;
                             <span className="avgResult">{this.state.totals.totalAvgPronounsRelative}%</span>
@@ -680,7 +681,7 @@ class Dashboard extends React.Component {
                     </Form>
                   </Row>
                   <Row>
-                    <Col sm={12} style={{height:400}}>
+                    <Col sm={12} style={{height:600}}>
                       <AmCharts
                         path="/public/js/amcharts3/amcharts"
                         type="serial"
@@ -756,17 +757,17 @@ class Dashboard extends React.Component {
                   <Row>
                     <Col xs={6}>
                       <h3 className="text-lighter">You've completed <span className="text-blue">{this.state.totals.totals} tests in total!</span></h3>
-                      <h4 className="text-lighter"><span className="text-brown">{this.state.totals.totalPrepositions}</span> preposition tests!</h4>
-                      <h4 className="text-lighter"><span className="text-green">{this.state.totals.totalIrregulars}</span> irregular verb tests!</h4>
-                      <h4 className="text-lighter"><span className="text-purple">{this.state.totals.totalLinking}</span> linking verb tests!</h4>
-                      <h4 className="text-lighter"><span className="text-orange">{this.state.totals.totalHelping}</span> helping verb tests!</h4>
-                      <h4 className="text-lighter"><span className="text-green">{this.state.totals.totalPronounsPersonal}</span> personal pronouns tests!</h4>
-                      <h4 className="text-lighter"><span className="text-brown">{this.state.totals.totalPronounsPossesive}</span> possesive pronouns tests!</h4>
-                      <h4 className="text-lighter"><span className="text-purple">{this.state.totals.totalPronounsIndefinite}</span> indefinite pronouns tests!</h4>
-                      <h4 className="text-lighter"><span className="text-orange">{this.state.totals.totalPronounsInterrogative}</span> interrogative pronouns tests!</h4>
-                      <h4 className="text-lighter"><span className="text-blue">{this.state.totals.totalPronounsDemonstrative}</span> demonstrative pronouns tests!</h4>
-                      <h4 className="text-lighter"><span className="text-purple">{this.state.totals.totalPronounsRelative}</span> relative pronouns tests!</h4>
-                      <h4 className="text-lighter"><span className="text-green">{this.state.totals.totalPronounsReflexive}</span> reflexive pronouns tests!</h4>
+                      <span className="text-h4 text-lighter">... <span className="text-brown">{this.state.totals.totalPrepositions}</span> preposition tests, </span>
+                      <span className="text-h4 text-lighter"><span className="text-green">{this.state.totals.totalIrregulars}</span> irregular verb tests, </span>
+                      <span className="text-h4 text-lighter"><span className="text-purple">{this.state.totals.totalLinking}</span> linking verb tests, </span>
+                      <span className="text-h4 text-lighter"><span className="text-orange">{this.state.totals.totalHelping}</span> helping verb tests, </span>
+                      <span className="text-h4 text-lighter"><span className="text-green">{this.state.totals.totalPronounsPersonal}</span> personal pronouns tests, </span>
+                      <span className="text-h4 text-lighter"><span className="text-brown">{this.state.totals.totalPronounsPossesive}</span> possesive pronouns tests, </span>
+                      <span className="text-h4 text-lighter"><span className="text-purple">{this.state.totals.totalPronounsIndefinite}</span> indefinite pronouns tests, </span>
+                      <span className="text-h4 text-lighter"><span className="text-orange">{this.state.totals.totalPronounsInterrogative}</span> interrogative pronouns tests, </span>
+                      <span className="text-h4 text-lighter"><span className="text-blue">{this.state.totals.totalPronounsDemonstrative}</span> demonstrative pronouns tests, </span>
+                      <span className="text-h4 text-lighter"><span className="text-purple">{this.state.totals.totalPronounsRelative}</span> relative pronouns tests, </span>
+                      <span className="text-h4 text-lighter"><span className="text-green">{this.state.totals.totalPronounsReflexive}</span> reflexive pronouns tests...</span>
                     </Col>
                     <Col xs={6}>
                       <h1 className="text-lightest avg-per-day">
