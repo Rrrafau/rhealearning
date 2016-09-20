@@ -44,7 +44,7 @@ function addRecord() {
   let type = getRandomInt(0, 10)
 
   result['type'] = types[type]
-  result['score'] = getRandomInt((60+i/50)-(i/100)-(type*2), ((60+i/50+10) > 100 ? 100 : (60+i/50+10))-(i/100)-(type*2))
+  result['score'] = getRandomInt((60+i/50)-(i/100)-(type*4*Math.random()), ((60+i/50+10) > 100 ? 100 : (60+i/50+10))-(i/100)-(type*4*Math.random()))
   result['hash'] = crypto.createHash('md5').update(date.getTime().toString() + result['type']).digest("hex")
   result['userID'] = 'radolasd@gmail.com'
   result['completionTimestamp'] = parseInt((date.getTime() / 1000).toFixed(0), 10)
