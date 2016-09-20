@@ -58,8 +58,8 @@ class Dashboard extends React.Component {
       prepositions: true,
       linking: false,
       irregulars: true,
-      helping: false,
-      combine: false,
+      helping: true,
+      combine: true,
       graphs: [],
       totals: {
         totalAvgPrepositions: 0,
@@ -393,11 +393,11 @@ class Dashboard extends React.Component {
                               name='irregulars'>
                               Irregular Verbs
                             </Checkbox>
-                            <Checkbox inline onChange={this.handleCheckboxChange}
+                            <Checkbox inline onChange={this.handleCheckboxChange} defaultChecked
                               name='linking'>
                               Linking Verbs
                             </Checkbox>
-                            <Checkbox inline onChange={this.handleCheckboxChange}
+                            <Checkbox inline onChange={this.handleCheckboxChange} defaultChecked
                               name='helping'>
                               Helping Verbs
                             </Checkbox>
@@ -493,6 +493,19 @@ class Dashboard extends React.Component {
                       <h4 className="text-lighter">{this.state.totals.totalIrregulars} irregular verb tests!</h4>
                       <h4 className="text-lighter">{this.state.totals.totalLinking} linking verb tests!</h4>
                       <h4 className="text-lighter">{this.state.totals.totalHelping} helping verb tests!</h4>
+                      <hr></hr>
+                    </Col>
+
+                    <Col xs={12}>
+                      <h3>Stay tuned! Keep in mind that this is an early alpha version and a ton of features have not been yet implemented</h3>
+                      <h3>Features to come:</h3>
+                      <ul>
+                        <li>auto generate personalized tests</li>
+                        <li>leveling and badging system</li>
+                        <li>better social integration (see how your friends are doing)</li>
+                        <li>machine learning your language weak points and generating unique learning paths to help you master your language</li>
+                        <li>iOS and Android apps</li>
+                      </ul>
                     </Col>
                   </Row>
                 </Grid>
