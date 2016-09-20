@@ -3,7 +3,19 @@ const crypto = require('crypto');
 
 const db = pmongo('mongodb://139.162.43.212/rheaenglish', ['results']);
 
-types = ['irregulars', 'prepositions', 'linking', 'helping']
+types = [
+  'prepositions',
+  'linking',
+  'helping',
+  'irregulars',
+  'pronouns_relative',
+  'pronouns_personal',
+  'pronouns_interrogative',
+  'pronouns_possesive',
+  'pronouns_reflexive',
+  'pronouns_demonstrative',
+  'pronouns_indefinite',
+]
 
 let results = [];
 
@@ -21,7 +33,7 @@ function addRecord() {
   let result = {};
   let date = randomDate(new Date(2015, 0, 1), new Date())
 
-  result['type'] = types[getRandomInt(0, 3)]
+  result['type'] = types[getRandomInt(0, 10)]
   result['score'] = getRandomInt(0, 100)
   result['hash'] = crypto.createHash('md5').update(date.getTime().toString() + result['type']).digest("hex")
   result['userID'] = 'radolasd@gmail.com'

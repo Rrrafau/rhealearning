@@ -11,11 +11,20 @@
 .text-lighter {
   font-weight: lighter;
 }
+.text-lightest {
+  font-weight: 100;
+}
 .text-blue {color: #73a0c8;}
 .text-green {
   color: #49a11f;
 }
-.text-brown {color: #d6871e;}
+.text-orange {
+  color: #d88647;
+}
+.text-purple {
+  color: #9862c6;
+}
+.text-brown {color: #905d18;}
 .detailsAvg {
   float: left;
 }
@@ -29,4 +38,9 @@
 }
 .past-combined-text b {
   color: #236188;
+}
+.avg-per-day {
+  padding-top: 20px;
+  text-align: right;
+  color: #cccdd4;
 }

@@ -86,12 +86,17 @@ function prepareResults(slides) {
   return results;
 }
 
+function cleanText(text) {
+  // remove wiki annotations
+  return text.replace(/\[[1-9a-z]\]/ig, '')
+}
+
 function tests(state = initialState, action) {
   let slides = Object.assign([], state.slides);
   switch (action.type) {
     case ActionTypes.SET_RAW_TEXT_VALUE:
       return Object.assign({}, state, {
-        rawText: action.rawText,
+        rawText: cleanText(action.rawText),
         wordPacket: ''
       })
     case ActionTypes.SUBMIT_TEST_ANSWER:

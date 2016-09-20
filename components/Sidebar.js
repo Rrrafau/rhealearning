@@ -45,7 +45,21 @@ class SidebarContainer extends React.Component {
                   <li style={{display:'block',pointerEvents:'all',height:45}} tabIndex="-1" className="sidebar-nav-item">
                     <Link to="/" style={{height:45}}>
                       <span className="icon-outlined-pencil rubix-icon"></span>
-                      <span className="name">New Test</span>
+                      <span className="name">Create Test</span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <div className="sidebar-nav-container">
+                <ul style={{marginBottom:0}} className="sidebar-nav">
+                  <li style={{display:'block',pointerEvents:'all',height:45}} tabIndex="-1" className="sidebar-nav-item">
+                    <Link to="/" style={{height:45}}>
+                      <span className="icon-fontello-newspaper-1 rubix-icon"></span>
+                      <span className="name">News Feed</span>
                     </Link>
                   </li>
                 </ul>
@@ -60,6 +74,104 @@ class SidebarContainer extends React.Component {
                     <Link to="/dashboard" style={{height:45}}>
                       <span className="icon-outlined-graph-rising rubix-icon"></span>
                       <span className="name">Dashboard</span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <div className="sidebar-nav-container">
+                <ul style={{marginBottom:0}} className="sidebar-nav">
+                  <li style={{display:'block',pointerEvents:'all',height:45}} tabIndex="-1" className="sidebar-nav-item">
+                    <Link to="/" style={{height:45}}>
+                      <span className="icon-outlined-profile rubix-icon"></span>
+                      <span className="name">{this.props.profile.name}</span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <div className="sidebar-nav-container">
+                <ul style={{marginBottom:0}} className="sidebar-nav">
+                  <li style={{display:'block',pointerEvents:'all',height:45}} tabIndex="-1" className="sidebar-nav-item">
+                    <Link to="/" style={{height:45}}>
+                      <span className="icon-ikons-users rubix-icon"></span>
+                      <span className="name">Friends</span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <div className="sidebar-nav-container">
+                <ul style={{marginBottom:0}} className="sidebar-nav">
+                  <li style={{display:'block',pointerEvents:'all',height:45}} tabIndex="-1" className="sidebar-nav-item">
+                    <Link to="/" style={{height:45}}>
+                      <span className="icon-feather-align-left rubix-icon"></span>
+                      <span className="name">About Us</span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <div className="sidebar-nav-container">
+                <ul style={{marginBottom:0}} className="sidebar-nav">
+                  <li style={{display:'block',pointerEvents:'all',height:45}} tabIndex="-1" className="sidebar-nav-item">
+                    <Link to="/" style={{height:45}}>
+                      <span className="icon-simple-line-icons-speech rubix-icon"></span>
+                      <span className="name">Contact</span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <div className="sidebar-nav-container">
+                <ul style={{marginBottom:0}} className="sidebar-nav">
+                  <li style={{display:'block',pointerEvents:'all',height:45}} tabIndex="-1" className="sidebar-nav-item">
+                    <Link to="/" style={{height:45}}>
+                      <span className="icon-mfizz-mobile-device rubix-icon"></span>
+                      <span className="name">Get Mobile App</span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <div className="sidebar-nav-container">
+                <ul style={{marginBottom:0}} className="sidebar-nav">
+                  <li style={{display:'block',pointerEvents:'all',height:45}} tabIndex="-1" className="sidebar-nav-item">
+                    <Link to="/" style={{height:45}}>
+                      <span className="icon-feather-help rubix-icon"></span>
+                      <span className="name">Help & FAQ</span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <div className="sidebar-nav-container">
+                <ul style={{marginBottom:0}} className="sidebar-nav">
+                  <li style={{display:'block',pointerEvents:'all',height:45}} tabIndex="-1" className="sidebar-nav-item">
+                    <Link to="/" style={{height:45}}>
+                      <span className="icon-feather-file rubix-icon"></span>
+                      <span className="name">Disclaimer</span>
                     </Link>
                   </li>
                 </ul>

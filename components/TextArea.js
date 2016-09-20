@@ -23,6 +23,13 @@ import prepositions from './../wordpackets/prepositions.json'
 import linking from './../wordpackets/linkingverbs.json'
 import helping from './../wordpackets/helpingverbs.json'
 import irregulars from './../wordpackets/irregulars.json'
+import pronouns_demonstrative from './../wordpackets/pronouns_demonstrative.json'
+import pronouns_indefinite from './../wordpackets/pronouns_indefinite.json'
+import pronouns_interrogative from './../wordpackets/pronouns_interrogative.json'
+import pronouns_personal from './../wordpackets/pronouns_personal.json'
+import pronouns_possesive from './../wordpackets/pronouns_possesive.json'
+import pronouns_reflexive from './../wordpackets/pronouns_reflexive.json'
+import pronouns_relative from './../wordpackets/pronouns_relative.json'
 
 class TextArea extends React.Component {
   constructor(props) {
@@ -39,6 +46,13 @@ class TextArea extends React.Component {
     this.createLinkingVerbs = this.createLinkingVerbs.bind(this)
     this.createIrregularChallenges = this.createIrregularChallenges.bind(this)
     this.createRegularChallenges = this.createRegularChallenges.bind(this)
+    this.createPronounsPersonal = this.createPronounsPersonal.bind(this)
+    this.createPronounsRelative = this.createPronounsRelative.bind(this)
+    this.createPronounsPossesive = this.createPronounsPossesive.bind(this)
+    this.createPronounsIndefinite = this.createPronounsIndefinite.bind(this)
+    this.createPronounsDemonstrative = this.createPronounsDemonstrative.bind(this)
+    this.createPronounsReflexive = this.createPronounsReflexive.bind(this)
+    this.createPronounsInterrogative = this.createPronounsInterrogative.bind(this)
 
     this.state = {
       showModal: false,
@@ -46,6 +60,13 @@ class TextArea extends React.Component {
       helping: helping,
       irregulars: irregulars,
       prepositions: prepositions,
+      pronouns_demonstrative: pronouns_demonstrative,
+      pronouns_indefinite: pronouns_indefinite,
+      pronouns_interrogative: pronouns_interrogative,
+      pronouns_personal: pronouns_personal,
+      pronouns_possesive: pronouns_possesive,
+      pronouns_reflexive: pronouns_reflexive,
+      pronouns_relative: pronouns_relative
     }
   }
 
@@ -89,7 +110,7 @@ class TextArea extends React.Component {
     nums = this.shuffleArray(nums)
 
     for(let i = 0; i < 4; i++) {
-      hints.push(words[nums[i]])
+      if(words[nums[i]]) hints.push(words[nums[i]])
     }
 
     hints.push(answer.value)
@@ -113,6 +134,34 @@ class TextArea extends React.Component {
 
   createIrregulars(event) {
     this.processText(event, 'irregulars')
+  }
+
+  createPronounsPersonal(event) {
+    this.processText(event, 'pronouns_personal')
+  }
+
+  createPronounsPossesive(event) {
+    this.processText(event, 'pronouns_possesive')
+  }
+
+  createPronounsRelative(event) {
+    this.processText(event, 'pronouns_relative')
+  }
+
+  createPronounsReflexive(event) {
+    this.processText(event, 'pronouns_reflexive')
+  }
+
+  createPronounsIndefinite(event) {
+    this.processText(event, 'pronouns_indefinite')
+  }
+
+  createPronounsInterrogative(event) {
+    this.processText(event, 'pronouns_interrogative')
+  }
+
+  createPronounsDemonstrative(event) {
+    this.processText(event, 'pronouns_demonstrative')
   }
 
   createIrregularChallenges(wordsAndBlanks, terms) {
@@ -210,7 +259,7 @@ class TextArea extends React.Component {
       return
     }
 
-    let sentences = text.split('.')
+    let sentences = text.split('. ')
 
     let wordsAndBlanks = sentences.map((sentence) => {
       let words = sentence.split(' ')
@@ -220,7 +269,6 @@ class TextArea extends React.Component {
       }
     })
 
-    console.log(wordPacket, terms);
     if(wordPacket !== 'irregulars') {
       challenges = this.createRegularChallenges(wordsAndBlanks, terms)
     }
@@ -315,13 +363,55 @@ class TextArea extends React.Component {
                 </Col>
                 <Col xs={12}>
                   <FormGroup>
-                    <Button bsStyle='orange75' onClick={this.createLinkingVerbs} className="learnenglish-btn">Linking Verbs</Button>
+                    <Button bsStyle='orange75' onClick={this.createPronounsDemonstrative} className="learnenglish-btn">Pronouns Demonstrative</Button>
+                    <p className="learnenglish-sample">(this, that, those, these)</p>
+                  </FormGroup>
+                </Col>
+                <Col xs={12}>
+                  <FormGroup>
+                    <Button bsStyle='brownishgray75' onClick={this.createPronounsIndefinite} className="learnenglish-btn">Pronouns Indefinite</Button>
+                    <p className="learnenglish-sample">(e.g. anyone, anybody, each, either, any, etc.)</p>
+                  </FormGroup>
+                </Col>
+                <Col xs={12}>
+                  <FormGroup>
+                    <Button bsStyle='purple' onClick={this.createPronounsInterrogative} className="learnenglish-btn">Pronouns Interrogative</Button>
+                    <p className="learnenglish-sample">(which, what, whose, whom, who)</p>
+                  </FormGroup>
+                </Col>
+                <Col xs={12}>
+                  <FormGroup>
+                    <Button bsStyle='deepred' onClick={this.createPronounsPersonal} className="learnenglish-btn">Pronouns Personal</Button>
+                    <p className="learnenglish-sample">(he, she, they, it, etc.)</p>
+                  </FormGroup>
+                </Col>
+                <Col xs={12}>
+                  <FormGroup>
+                    <Button bsStyle='paleorange' onClick={this.createPronounsPossesive} className="learnenglish-btn">Pronouns Possesive</Button>
+                    <p className="learnenglish-sample">(my, your, his, her, etc.)</p>
+                  </FormGroup>
+                </Col>
+                <Col xs={12}>
+                  <FormGroup>
+                    <Button bsStyle='darkgreen85' onClick={this.createPronounsReflexive} className="learnenglish-btn">Pronouns Reflexive</Button>
+                    <p className="learnenglish-sample">(e.g. myself, yourself, ourselves, etc.)</p>
+                  </FormGroup>
+                </Col>
+                <Col xs={12}>
+                  <FormGroup>
+                    <Button bsStyle='brightyellow75' onClick={this.createPronounsRelative} className="learnenglish-btn">Pronouns Relative</Button>
+                    <p className="learnenglish-sample">(this, which, who, whose, etc.)</p>
+                  </FormGroup>
+                </Col>
+                <Col xs={12}>
+                  <FormGroup>
+                    <Button bsStyle='pink' onClick={this.createLinkingVerbs} className="learnenglish-btn">Linking Verbs</Button>
                     <p className="learnenglish-sample">(forms of: be, sensory verbs, etc.)</p>
                   </FormGroup>
                 </Col>
                 <Col xs={12}>
                   <FormGroup>
-                    <Button bsStyle='brownishgray75' onClick={this.createHelpingVerbs} className="learnenglish-btn">Helping verbs</Button>
+                    <Button bsStyle='darkcyan' onClick={this.createHelpingVerbs} className="learnenglish-btn">Helping verbs</Button>
                     <p className="learnenglish-sample">(forms of: be, have, do, does, should, would, etc.)</p>
                   </FormGroup>
                 </Col>

@@ -16,6 +16,7 @@ import {
   Panel,
   Button,
   Checkbox,
+  Table,
   Popover,
   ControlLabel,
   OverlayTrigger,
@@ -27,8 +28,86 @@ import {
   PanelContainer,
 } from '@sketchpixy/rubix'
 import {
-  getResults
+  getResultspronouns_reflexive
 } from '../actions';
+
+class TestsTable extends React.Component {
+  componentWillMount() {
+    let recentTests = []
+
+    for(let i = (this.props.data.length-1); i > this.props.data.length-6; i--) {
+      let title = ''
+
+      switch(this.props.data[i].type) {
+        case 'irregulars':
+          title = "Irregular Verbs"
+          break;
+        case 'linking':
+          title = "Linking Verbs"
+          break;
+        case 'helping':
+          title = "Helping Verbs"
+          break;
+        case 'prepositions':
+          title = "Prepositions"
+          break;
+        case 'pronouns_demonstrative':
+          title = "Pronouns Demonstrative"
+          break;
+        case 'pronouns_indefinite':
+          title = "Pronouns Indefinite"
+          break;
+        case 'pronouns_interrogative':
+          title = "Pronouns Interrogative"
+          break;
+        case 'pronouns_personal':
+          title = "Pronouns Personal"
+          break;
+        case 'pronouns_possesive':
+          title = "Pronouns Possesive"
+          break;
+        case 'pronouns_reflexive':
+          title = "Pronouns Reflexive"
+          break;
+        case 'pronouns_relative':
+          title = "Pronouns Relative"
+          break;
+
+      }
+
+      this.props.data[i].title = title
+
+      recentTests.push(this.props.data[i])
+    }
+
+    this.setState({recentTests})
+  }
+
+  render() {
+    return (
+      <Table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Most Recent Tests</th>
+            <th>Test Type</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+            {this.state.recentTests.map((test, i) => (
+              <tr key={i}>
+                <td>{i+1}</td>
+                <td className="text-lighter">{moment(test.date).format('dddd, MMM Do YYYY')}</td>
+                <td className="text-lighter">{'"'+test.title+'"'}</td>
+                <td className="text-lighter text-blue">{test.score}%</td>
+              </tr>
+            ))}
+        </tbody>
+      </Table>
+    )
+  }
+}
 
 class Dashboard extends React.Component {
   constructor() {
@@ -60,10 +139,31 @@ class Dashboard extends React.Component {
       linking: true,
       irregulars: true,
       helping: true,
+      pronouns_relative: true,
+      pronouns_personal: true,
+      pronouns_interrogative: true,
+      pronouns_possesive: true,
+      pronouns_reflexive: true,
+      pronouns_demonstrative: true,
+      pronouns_indefinite: true,
       combine: false,
       pastCombined: 0,
       graphs: [],
       totals: {
+        totalAvgPronounsDemonstrative: 0,
+        totalPronounsDemonstrative: 0,
+        totalAvgPronounsIndefinite: 0,
+        totalPronounsIndefinite: 0,
+        totalAvgPronounsInterrogative: 0,
+        totalPronounsInterrogative: 0,
+        totalAvgPronounsPersonal: 0,
+        totalPronounsPersonal: 0,
+        totalAvgPronounsPossesive: 0,
+        totalPronounsPossesive: 0,
+        totalAvgPronounsReflexive: 0,
+        totalPronounsReflexive: 0,
+        totalAvgPronounsRelative: 0,
+        totalPronounsRelative: 0,
         totalAvgPrepositions: 0,
         totalPrepositions: 0,
         totalAvgIrregulars: 0,
@@ -72,7 +172,19 @@ class Dashboard extends React.Component {
         totalLinking: 0,
         totalAvgHelping: 0,
         totalHelping: 0,
-        categories: ['prepositions', 'linking', 'helping', 'irregulars']
+        categories: [
+          'prepositions',
+          'linking',
+          'helping',
+          'irregulars',
+          'pronouns_relative',
+          'pronouns_personal',
+          'pronouns_interrogative',
+          'pronouns_possesive',
+          'pronouns_reflexive',
+          'pronouns_demonstrative',
+          'pronouns_indefinite',
+        ]
       }
     }
   }
@@ -109,7 +221,7 @@ class Dashboard extends React.Component {
   }
 
   setGraphs() {
-    let categories = ['prepositions', 'linking', 'helping', 'irregulars']
+    let categories = this.state.totals.categories
     let graphs = []
     let that = this
     if(this.state.combine) {
@@ -211,7 +323,7 @@ class Dashboard extends React.Component {
       // totals for chunk
       let sum = datum.map(function(d) {return d.score}).reduce((a, b) => a + b, 0)
       let avg = Math.floor(sum / datum.length)
-      let categories = ['prepositions', 'linking', 'helping', 'irregulars']
+      let categories = this.state.totals.categories
 
       newDatum.score = avg
       newDatum.date = new Date(key)
@@ -251,6 +363,13 @@ class Dashboard extends React.Component {
       helping: [],
       linking: [],
       irregulars: [],
+      pronouns_relative: [],
+      pronouns_personal: [],
+      pronouns_interrogative: [],
+      pronouns_possesive: [],
+      pronouns_reflexive: [],
+      pronouns_demonstrative: [],
+      pronouns_indefinite: [],
       all: []
     }
     let results = {}
@@ -270,12 +389,40 @@ class Dashboard extends React.Component {
       else if(datum.type === 'irregulars') {
         totals.irregulars.push(datum.score)
       }
+      else if(datum.type === 'pronouns_indefinite') {
+        totals.pronouns_indefinite.push(datum.score)
+      }
+      else if(datum.type === 'pronouns_personal') {
+        totals.pronouns_personal.push(datum.score)
+      }
+      else if(datum.type === 'pronouns_possesive') {
+        totals.pronouns_possesive.push(datum.score)
+      }
+      else if(datum.type === 'pronouns_relative') {
+        totals.pronouns_relative.push(datum.score)
+      }
+      else if(datum.type === 'pronouns_reflexive') {
+        totals.pronouns_reflexive.push(datum.score)
+      }
+      else if(datum.type === 'pronouns_demonstrative') {
+        totals.pronouns_demonstrative.push(datum.score)
+      }
+      else if(datum.type === 'pronouns_interrogative') {
+        totals.pronouns_interrogative.push(datum.score)
+      }
     })
 
     results.totalHelping = totals.helping.length
     results.totalLinking = totals.linking.length
     results.totalIrregulars = totals.irregulars.length
     results.totalPrepositions = totals.prepositions.length
+    results.totalPronounsRelative = totals.pronouns_relative.length
+    results.totalPronounsPersonal = totals.pronouns_personal.length
+    results.totalPronounsReflexive = totals.pronouns_reflexive.length
+    results.totalPronounsPossesive = totals.pronouns_possesive.length
+    results.totalPronounsIndefinite = totals.pronouns_indefinite.length
+    results.totalPronounsDemonstrative = totals.pronouns_demonstrative.length
+    results.totalPronounsInterrogative = totals.pronouns_interrogative.length
     results.totals = totals.all.length
 
     results.totalAvgHelping = parseFloat((totals.helping.reduce((a, b) => a + b, 0)
@@ -286,6 +433,20 @@ class Dashboard extends React.Component {
       / results.totalIrregulars).toFixed(2))
     results.totalAvgPrepositions = parseFloat((totals.prepositions.reduce((a, b) => a + b, 0)
       / results.totalPrepositions).toFixed(2))
+    results.totalAvgPronounsRelative = parseFloat((totals.pronouns_relative.reduce((a, b) => a + b, 0)
+      / results.totalPronounsRelative).toFixed(2))
+    results.totalAvgPronounsDemonstrative= parseFloat((totals.pronouns_demonstrative.reduce((a, b) => a + b, 0)
+      / results.totalPronounsDemonstrative).toFixed(2))
+    results.totalAvgPronounsIndefinite = parseFloat((totals.pronouns_indefinite.reduce((a, b) => a + b, 0)
+      / results.totalPronounsIndefinite).toFixed(2))
+    results.totalAvgPronounsInterrogative = parseFloat((totals.pronouns_interrogative.reduce((a, b) => a + b, 0)
+      / results.totalPronounsInterrogative).toFixed(2))
+    results.totalAvgPronounsPersonal = parseFloat((totals.pronouns_personal.reduce((a, b) => a + b, 0)
+      / results.totalPronounsPersonal).toFixed(2))
+    results.totalAvgPronounsPossesive = parseFloat((totals.pronouns_possesive.reduce((a, b) => a + b, 0)
+      / results.totalPronounsPossesive).toFixed(2))
+    results.totalAvgPronounsReflexive = parseFloat((totals.pronouns_reflexive.reduce((a, b) => a + b, 0)
+      / results.totalPronounsReflexive).toFixed(2))
     results.totalsAvg = parseFloat((totals.all.reduce((a, b) => a + b, 0)
       / results.totals).toFixed(2))
 
@@ -322,8 +483,25 @@ class Dashboard extends React.Component {
     this.setState({ interval, chunkedData, chartData, minPeriod })
   }
 
+  getAvgPerDay() {
+    let a = moment(this.state.data[0].date);
+    let b = moment(this.state.data[this.state.data.length-1].date);
+    let days = b.diff(a, 'days')+1;
+
+    let avg = parseFloat((this.state.data.length/days).toFixed(1))
+
+    if(avg === 1) {
+      avg = '1 test'
+    }
+    else {
+      avg = avg + ' tests'
+    }
+
+    return avg
+  }
+
   setChartOption(option, cb) {
-    this.setState(option, function() {
+    this.setState(Object.assign({}, option), function() {
       if(typeof cb === 'function') cb()
     })
   }
@@ -367,52 +545,79 @@ class Dashboard extends React.Component {
                     <Col xs={12}>
                     <h2>Welcome to your <span className="text-blue">Dashboard</span>, {this.props.profile.given_name}!</h2>
                     <h3 className="text-lighter">Below you can find your <span className="text-green">stats</span>.
-                      Below chart will give you an insight into your <span className="text-brown">progress and results</span>. Play around with it find
-                      areas you could improve! </h3>
+                      Our robust chart will give you an insight to your <span className="text-purple">progress and results</span>.
+                      Play around with the settings and find areas where you can <span className="text-green">improve!</span> </h3>
+                    <hr></hr>
                     </Col>
                   </Row>
                   <Row>
                     <Col xs={12}>
-                      <FormGroup controlId='largeselect'>
-                        <Col xs={6} componentClass={ControlLabel}><h4>Show:</h4>
-                          <FormControl defaultValue="31" onChange={this.setTimeline} componentClass='select'>
+                      <Col xs={6} componentClass={ControlLabel}><h4>Display Period:</h4>
+                        <FormGroup controlId='largeselect' bsSize='large'>
+                          <FormControl style={{fontWeight: 300}} defaultValue="31" onChange={this.setTimeline} componentClass='select'>
                             <option value="7">Last 7 Days</option>
-                            <option selected value="31">Last 31 Days</option>
+                            <option value="31">Last 31 Days</option>
                             <option value="93">Last 3 Months</option>
                             <option value="365">Last Year</option>
                             <option value="10000">Max</option>
                           </FormControl>
-                        </Col>
-                        <Col xs={6}><h4>Average Results:</h4>
-                          <div className="combinedAvg">Combined Average:&nbsp;
-                            <span className="avgResult">{this.state.totals.totalsAvg}%</span>&nbsp;<br />
-                            <div className="past-combined-text">(was <b>{this.state.pastCombined}%</b> one&nbsp;
-                            <FormControl name="type" onChange={this.selectPastCombined} className="past-combined" componentClass='select'>
-                              <option value="1">day</option>
-                              <option selected value="7">week</option>
-                              <option value="31">month</option>
-                              <option value="365">year</option>
-                            </FormControl> ago)</div>
-                          </div>
-                          <div className="detailsAvgContainer">
-                            <span className="detailsAvg">Prepositions:&nbsp;
-                              <span className="avgResult">{this.state.totals.totalAvgPrepositions}%</span>,&nbsp;
-                            </span>
-                            <span className="detailsAvg">Irregular:&nbsp;
-                              <span className="avgResult">{this.state.totals.totalAvgIrregulars}%</span>,&nbsp;
-                            </span>
-                            <span className="detailsAvg">Linking:&nbsp;
-                              <span className="avgResult">{this.state.totals.totalAvgLinking}%</span>,&nbsp;
-                            </span>
-                            <span className="detailsAvg">Helping:&nbsp;
-                              <span className="avgResult">{this.state.totals.totalAvgHelping}%</span>
-                            </span>
-                          </div>
-                        </Col>
-                      </FormGroup>
+                        </FormGroup>
+                      </Col>
+                      <Col xs={6} componentClass={ControlLabel}><h4>Average Results:</h4>
+                        <div className="combinedAvg">Combined Average:&nbsp;
+                          <span className="avgResult">{this.state.totals.totalsAvg}%</span>&nbsp;<br />
+                          <div className="past-combined-text">(was <b>{this.state.pastCombined}%</b> one&nbsp;
+                          <FormControl defaultValue="7" name="type" onChange={this.selectPastCombined} className="past-combined" componentClass='select'>
+                            <option value="1">day</option>
+                            <option value="7">week</option>
+                            <option value="31">month</option>
+                            <option value="365">year</option>
+                          </FormControl> ago)</div>
+                        </div>
+                        <div className="detailsAvgContainer">
+                          <span className="detailsAvg">Prepositions:&nbsp;
+                            <span className="avgResult">{this.state.totals.totalAvgPrepositions}%</span>,&nbsp;
+                          </span>
+                          <span className="detailsAvg">Irregular:&nbsp;
+                            <span className="avgResult">{this.state.totals.totalAvgIrregulars}%</span>,&nbsp;
+                          </span>
+                          <span className="detailsAvg">Linking:&nbsp;
+                            <span className="avgResult">{this.state.totals.totalAvgLinking}%</span>,&nbsp;
+                          </span>
+                          <span className="detailsAvg">Helping:&nbsp;
+                            <span className="avgResult">{this.state.totals.totalAvgHelping}%</span>
+                          </span>
+                          <span className="detailsAvg">Personal:&nbsp;
+                            <span className="avgResult">{this.state.totals.totalAvgPronounsPersonal}%</span>
+                          </span>
+                          <span className="detailsAvg">Reflexive:&nbsp;
+                            <span className="avgResult">{this.state.totals.totalAvgPronounsReflexive}%</span>
+                          </span>
+                          <span className="detailsAvg">Possesive:&nbsp;
+                            <span className="avgResult">{this.state.totals.totalAvgPronounsPossesive}%</span>
+                          </span>
+                          <span className="detailsAvg">Interrogative:&nbsp;
+                            <span className="avgResult">{this.state.totals.totalAvgPronounsInterrogative}%</span>
+                          </span>
+                          <span className="detailsAvg">Indefinite:&nbsp;
+                            <span className="avgResult">{this.state.totals.totalAvgPronounsIndefinite}%</span>
+                          </span>
+                          <span className="detailsAvg">Demonstrative:&nbsp;
+                            <span className="avgResult">{this.state.totals.totalAvgPronounsDemonstrative}%</span>
+                          </span>
+                          <span className="detailsAvg">Relative:&nbsp;
+                            <span className="avgResult">{this.state.totals.totalAvgPronounsRelative}%</span>
+                          </span>
+                        </div>
+                      </Col>
                     </Col>
                   </Row>
                   <hr></hr>
+                  <Row>
+                    <Col xs={12}>
+                      {<TestsTable data={this.state.data}></TestsTable>}
+                    </Col>
+                  </Row>
                   <Row>
                     <Form horizontal>
                       <Col xs={12}>
@@ -434,6 +639,34 @@ class Dashboard extends React.Component {
                             <Checkbox inline onChange={this.handleCheckboxChange} defaultChecked
                               name='helping'>
                               Helping Verbs
+                            </Checkbox>
+                            <Checkbox inline onChange={this.handleCheckboxChange} defaultChecked
+                              name='pronouns_personal'>
+                              Pronouns Personal
+                            </Checkbox>
+                            <Checkbox inline onChange={this.handleCheckboxChange} defaultChecked
+                              name='pronouns_relative'>
+                              Pronouns Relative
+                            </Checkbox>
+                            <Checkbox inline onChange={this.handleCheckboxChange} defaultChecked
+                              name='pronouns_reflexive'>
+                              Pronouns Reflexive
+                            </Checkbox>
+                            <Checkbox inline onChange={this.handleCheckboxChange} defaultChecked
+                              name='pronouns_possesive'>
+                              Pronouns Possesive
+                            </Checkbox>
+                            <Checkbox inline onChange={this.handleCheckboxChange} defaultChecked
+                              name='pronouns_indefinite'>
+                              Pronouns Indefinite
+                            </Checkbox>
+                            <Checkbox inline onChange={this.handleCheckboxChange} defaultChecked
+                              name='pronouns_interrogative'>
+                              Pronouns Interrogative
+                            </Checkbox>
+                            <Checkbox inline onChange={this.handleCheckboxChange} defaultChecked
+                              name='pronouns_demonstrative'>
+                              Pronouns Demonstrative
                             </Checkbox>
                           </Col>
                           <Col sm={2}>
@@ -497,9 +730,9 @@ class Dashboard extends React.Component {
                         <FormGroup controlId='largeselect'>
                           <Col sm={3} componentClass={ControlLabel}>Chart Type:</Col>
                           <Col sm={9}>
-                            <FormControl name="type" onChange={this.handleSelectChange} componentClass='select'>
+                            <FormControl name="type" defaultValue="smoothedLine" onChange={this.handleSelectChange} componentClass='select'>
                               <option value="line">Hard Line</option>
-                              <option selected value="smoothedLine">Smooth Line</option>
+                              <option value="smoothedLine">Smooth Line</option>
                               <option value="column">Column</option>
                             </FormControl>
                           </Col>
@@ -509,10 +742,10 @@ class Dashboard extends React.Component {
                         <FormGroup controlId='largeselect'>
                           <Col sm={3} componentClass={ControlLabel}>Interval:</Col>
                           <Col sm={9}>
-                            <FormControl onChange={this.groupByInterval} componentClass='select'>
+                            <FormControl defaultValue="week" onChange={this.groupByInterval} componentClass='select'>
                               <option value="hour">Hour</option>
                               <option value="day">Day</option>
-                              <option selected value="week">Week</option>
+                              <option value="week">Week</option>
                               <option value="month">Month</option>
                             </FormControl>
                           </Col>
@@ -521,16 +754,27 @@ class Dashboard extends React.Component {
                     </Form>
                   </Row>
                   <Row>
-                    <Col xs={12}>
+                    <Col xs={6}>
                       <h3 className="text-lighter">You've completed <span className="text-blue">{this.state.totals.totals} tests in total!</span></h3>
-                      <h4 className="text-lighter">{this.state.totals.totalPrepositions} preposition tests!</h4>
-                      <h4 className="text-lighter">{this.state.totals.totalIrregulars} irregular verb tests!</h4>
-                      <h4 className="text-lighter">{this.state.totals.totalLinking} linking verb tests!</h4>
-                      <h4 className="text-lighter">{this.state.totals.totalHelping} helping verb tests!</h4>
-                      <hr></hr>
+                      <h4 className="text-lighter"><span className="text-brown">{this.state.totals.totalPrepositions}</span> preposition tests!</h4>
+                      <h4 className="text-lighter"><span className="text-green">{this.state.totals.totalIrregulars}</span> irregular verb tests!</h4>
+                      <h4 className="text-lighter"><span className="text-purple">{this.state.totals.totalLinking}</span> linking verb tests!</h4>
+                      <h4 className="text-lighter"><span className="text-orange">{this.state.totals.totalHelping}</span> helping verb tests!</h4>
+                      <h4 className="text-lighter"><span className="text-green">{this.state.totals.totalPronounsPersonal}</span> personal pronouns tests!</h4>
+                      <h4 className="text-lighter"><span className="text-brown">{this.state.totals.totalPronounsPossesive}</span> possesive pronouns tests!</h4>
+                      <h4 className="text-lighter"><span className="text-purple">{this.state.totals.totalPronounsIndefinite}</span> indefinite pronouns tests!</h4>
+                      <h4 className="text-lighter"><span className="text-orange">{this.state.totals.totalPronounsInterrogative}</span> interrogative pronouns tests!</h4>
+                      <h4 className="text-lighter"><span className="text-blue">{this.state.totals.totalPronounsDemonstrative}</span> demonstrative pronouns tests!</h4>
+                      <h4 className="text-lighter"><span className="text-purple">{this.state.totals.totalPronounsRelative}</span> relative pronouns tests!</h4>
+                      <h4 className="text-lighter"><span className="text-green">{this.state.totals.totalPronounsReflexive}</span> reflexive pronouns tests!</h4>
                     </Col>
-
+                    <Col xs={6}>
+                      <h1 className="text-lightest avg-per-day">
+                        That's roughly <span className="text-green"><b>{this.getAvgPerDay()}</b></span> per day! Think you can improve it?...
+                      </h1>
+                    </Col>
                     <Col xs={12}>
+                      <hr></hr>
                       <h3>Stay tuned! Keep in mind that this is an early alpha version and a ton of features have not been yet implemented</h3>
                       <h3>Features to come:</h3>
                       <ul>
@@ -554,7 +798,11 @@ class Dashboard extends React.Component {
           <PanelContainer noOverflow>
             <Panel>
               <PanelBody>
-                Loading...
+                <Row>
+                  <Col xs={12}>
+                    <h1 style={{textAlign: 'center', paddingBottom:30}}>Loading your data... <span className="icon-ikons-loading rubix-icon"></span></h1>
+                  </Col>
+                </Row>
               </PanelBody>
             </Panel>
           </PanelContainer>

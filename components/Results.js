@@ -152,6 +152,7 @@ class Results extends React.Component {
                     <h3 className="review-answers">Review your answers:</h3>
                     <hr />
                     <div className="results-text">
+                    <h4>Test type: {this.props.testType}.</h4>
                     {slides.map(function(sentence, s) {
                       return (
                         <div key={'_div'+s}>
@@ -213,11 +214,12 @@ class Results extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { results, slides, wordPacket, rawText } = state.tests;
+  const { results, slides, wordPacket, testType, rawText } = state.tests;
   const { isAuthenticated, profile } = state.auth;
   return {
     results,
     slides,
+    testType,
     profile,
     wordPacket,
     isAuthenticated
