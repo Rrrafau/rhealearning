@@ -56,10 +56,10 @@ class Dashboard extends React.Component {
       parseDates: true,
       timeline: new Date(moment().subtract(31, 'days')),
       prepositions: true,
-      linking: false,
+      linking: true,
       irregulars: true,
       helping: true,
-      combine: true,
+      combine: false,
       graphs: [],
       totals: {
         totalAvgPrepositions: 0,
