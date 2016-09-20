@@ -233,7 +233,7 @@ class Dashboard extends React.Component {
         valueField: "score",
         labelText: "[[value]]%",
         type: this.state.type,
-        fillAlphas: this.state.type === 'column' ? 1 : 0,
+        fillAlphas: this.state.type === 'column' ? 1 : 0.25,
         bullet: that.state.type === 'smoothedLine' ? 'round' : 'none',
         lineThickness: 2,
         bulletBorderAlpha: 1,
@@ -253,7 +253,7 @@ class Dashboard extends React.Component {
             type: that.state.type,
             lineThickness: 2,
             labelText: "[[value]]%",
-            fillAlphas: that.state.type === 'column' ? 1 : 0,
+            fillAlphas: that.state.type === 'column' ? 1 : 0.1,
             bullet: that.state.type === 'smoothedLine' ? 'round' : 'none',
             bulletBorderAlpha: 1,
             bulletColor: "#FFFFFF",
@@ -703,14 +703,18 @@ class Dashboard extends React.Component {
                           "scrollbarHeight": 40
                         }}
                         dataProvider={this.state.chartData}
+                        valueScrollbar={{
+                          "autoGridCount": true,
+                          "color": "#000000",
+                          "scrollbarHeight": 50
+                        }}
                         valueAxes={[{
                           "axisAlpha": 0.2,
                           "dashLength": 1,
                           "unit": "%",
                           "minimum": 0,
                           "maximum": 100,
-                          "position": "left",
-                          "title": "Results"
+                          "position": "left"
                         }]}
                         legend={{
                           position: 'bottom',
@@ -718,7 +722,7 @@ class Dashboard extends React.Component {
                           valueText: '[[value]]%'
                         }}
                         mouseWheelZoomEnabled={true}
-                        startDuration={0.15}
+                        startDuration={0}
                         chartCursor={{
                           "limitToGraph":"g1"
                         }}
