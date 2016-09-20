@@ -690,7 +690,7 @@ class Dashboard extends React.Component {
                     </Form>
                   </Row>
                   <Row>
-                    <Col sm={12} style={{height:600}}>
+                    <Col sm={12} style={{height:550}}>
                       <AmCharts
                         path="/public/js/amcharts3/amcharts"
                         type="serial"
