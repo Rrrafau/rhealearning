@@ -5,7 +5,7 @@ import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
 import TextArea from '../components/TextArea'
 import classNames from 'classnames';
-import '../src/main.css';
+
 import {
   MainContainer,
   Grid,

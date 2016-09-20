@@ -1,19 +1,21 @@
 import React from 'react';
-
+import { connect } from 'react-redux'
+import { Link } from 'react-router'
 import {
   Sidebar, SidebarNav, SidebarNavItem,
   SidebarControls, SidebarControlBtn,
   Grid, Row, Col, FormControl,
-  Label, Progress, Icon,
+  Label, Progress,
   SidebarDivider
 } from '@sketchpixy/rubix';
-import '../public/css/sidebar.css';
 
-export default class SidebarContainer extends React.Component {
+class SidebarContainer extends React.Component {
   render() {
+
     const { isAuthenticated, profile } = this.props
+
     return (
-      <div id='sidebar' className="leengo-sidebar" {...this.props}>
+      <div id='sidebar' className="leengo-sidebar" >
         { isAuthenticated ? (
         <div id='avatar'>
           <Grid>
@@ -25,19 +27,52 @@ export default class SidebarContainer extends React.Component {
                 <div style={{top: 23, fontSize: 16, lineHeight: 1, position: 'relative'}}>{profile.name}</div>
                 <div>
                   <Progress id='demo-progress' value={30} color='#ffffff'/>
-                  <a href='#'>
-                    <Icon id='demo-icon' bundle='fontello' glyph='lock-5' />
-                  </a>
                 </div>
               </Col>
             </Row>
           </Grid>
         </div>
-      ) : null}
-        <div id='sidebar-container'>
-
+        ) : null}
+        <SidebarControls>
+          <SidebarControlBtn bundle='fontello' glyph='docs' sidebar={0} />
+        </SidebarControls>
+        { /** had to paste the plain html because this fucking theme wouldn't work... */ }
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-xs-12">
+              <div className="sidebar-nav-container">
+                <ul style={{marginBottom:0}} className="sidebar-nav">
+                  <li style={{display:'block',pointerEvents:'all',height:45}} tabIndex="-1" className="sidebar-nav-item">
+                    <Link to="/" style={{height:45}}>
+                      <span className="icon-outlined-pencil rubix-icon"></span>
+                      <span className="name">New Test</span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <div className="sidebar-nav-container">
+                <ul style={{marginBottom:0}} className="sidebar-nav">
+                  <li style={{display:'block',pointerEvents:'all',height:45}} tabIndex="-1" className="sidebar-nav-item">
+                    <Link to="/dashboard" style={{height:45}}>
+                      <span className="icon-outlined-graph-rising rubix-icon"></span>
+                      <span className="name">Dashboard</span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {}
+}
+export default connect(mapStateToProps, {})(SidebarContainer)

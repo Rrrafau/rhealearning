@@ -22,7 +22,6 @@ import prepositions from './../wordpackets/prepositions.json'
 import linking from './../wordpackets/linkingverbs.json'
 import helping from './../wordpackets/helpingverbs.json'
 import irregulars from './../wordpackets/irregulars.json'
-import './../public/css/textarea.css'
 
 class TextArea extends React.Component {
   constructor(props) {
@@ -47,6 +46,10 @@ class TextArea extends React.Component {
       irregulars: irregulars,
       prepositions: prepositions,
     }
+  }
+
+  componentWillMount() {
+    console.log(this.props)
   }
 
   close() {
@@ -148,7 +151,7 @@ class TextArea extends React.Component {
       }
 
     });
-    console.log(challenges);
+
     return challenges
   }
 
@@ -197,8 +200,8 @@ class TextArea extends React.Component {
     return challenges
   }
 
-  processText(event, wordpacket) {
-    const terms = this.state[wordpacket].list
+  processText(event, wordPacket) {
+    const terms = this.state[wordPacket].list
     let text = this.props.rawText
     let challenges = []
 
@@ -216,7 +219,8 @@ class TextArea extends React.Component {
       }
     })
 
-    if(wordpacket !== 'irregulars') {
+    console.log(wordPacket, terms);
+    if(wordPacket !== 'irregulars') {
       challenges = this.createRegularChallenges(wordsAndBlanks, terms)
     }
     else {
@@ -225,8 +229,9 @@ class TextArea extends React.Component {
     challenges = challenges.filter(function(n){ return n != undefined })
 
     challenges = this.shuffleArray(challenges)
+
     if(challenges.length) {
-      this.props.createTestSlides(challenges)
+      this.props.createTestSlides(challenges, wordPacket)
       browserHistory.push('slides/1')
     }
     else {
@@ -323,16 +328,16 @@ class TextArea extends React.Component {
                 <Col xs={12}>
                   <FormGroup>
                     <div className="robots">
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot-1.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot-1.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot-1.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot-1.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot-1.png')} />
-                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src={require('../public/imgs/common/robot.png')} />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src='/public/imgs/common/robot-1.png' />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src='/public/imgs/common/robot.png' />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src='/public/imgs/common/robot-1.png' />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src='/public/imgs/common/robot.png' />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src='/public/imgs/common/robot-1.png' />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src='/public/imgs/common/robot.png' />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src='/public/imgs/common/robot-1.png' />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src='/public/imgs/common/robot.png' />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src='/public/imgs/common/robot-1.png' />
+                      <img style={{opacity: 0.5}} className="pull-right" width="50px" src='/public/imgs/common/robot.png' />
                     </div>
                     <h3 className="pull-right coming-soon">OUR ROBOTS ARE WORKING TIRELESSLY TO ADD MORE TESTS! STAY TUNED...</h3>
                   </FormGroup>

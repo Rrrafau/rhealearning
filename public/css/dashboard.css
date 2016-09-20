@@ -1,0 +1,18 @@
+.combinedAvg {
+  font-size: 1.1em;
+}
+.avgResult {
+  font-weight: bolder;
+  color: #6dad8b;
+}
+.detailsAvgContainer {
+  font-weight: lighter;
+}
+.text-lighter {
+  font-weight: lighter;
+}
+.text-blue {color: #73a0c8;}
+.text-green {
+  color: #49a11f;
+}
+.text-brown {color: #d6871e;}

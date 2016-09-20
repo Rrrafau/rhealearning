@@ -1,0 +1,7 @@
+db.createUser(
+  {
+    user: "mongoadmin",
+    pwd: "aVG6cWstEEvgkhuF",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+  }
+)

@@ -1,0 +1,76 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "amcharts3-react@github:amcharts/amcharts3-react",
+        "scope": null,
+        "escapedName": "amcharts3-react",
+        "name": "amcharts3-react",
+        "rawSpec": "github:amcharts/amcharts3-react",
+        "spec": "github:amcharts/amcharts3-react",
+        "type": "hosted",
+        "hosted": {
+          "type": "github",
+          "ssh": "git@github.com:amcharts/amcharts3-react.git",
+          "sshUrl": "git+ssh://git@github.com/amcharts/amcharts3-react.git",
+          "httpsUrl": "git+https://github.com/amcharts/amcharts3-react.git",
+          "gitUrl": "git://github.com/amcharts/amcharts3-react.git",
+          "shortcut": "github:amcharts/amcharts3-react",
+          "directUrl": "https://raw.githubusercontent.com/amcharts/amcharts3-react/master/package.json"
+        }
+      },
+      "/Users/rafalradolinski/Projects/auth0/redux-auth0-master"
+    ]
+  ],
+  "_from": "amcharts/amcharts3-react",
+  "_id": "amcharts3-react@1.1.1",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/amcharts3-react",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "amcharts3-react@github:amcharts/amcharts3-react",
+    "scope": null,
+    "escapedName": "amcharts3-react",
+    "name": "amcharts3-react",
+    "rawSpec": "github:amcharts/amcharts3-react",
+    "spec": "github:amcharts/amcharts3-react",
+    "type": "hosted",
+    "hosted": {
+      "type": "github",
+      "ssh": "git@github.com:amcharts/amcharts3-react.git",
+      "sshUrl": "git+ssh://git@github.com/amcharts/amcharts3-react.git",
+      "httpsUrl": "git+https://github.com/amcharts/amcharts3-react.git",
+      "gitUrl": "git://github.com/amcharts/amcharts3-react.git",
+      "shortcut": "github:amcharts/amcharts3-react",
+      "directUrl": "https://raw.githubusercontent.com/amcharts/amcharts3-react/master/package.json"
+    }
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "git://github.com/amcharts/amcharts3-react.git#86f7dc4624cf84e68eeb2d58948d1b5bbbee9a34",
+  "_shasum": "9548f7b518f2158fe669eff8ba0b2322b81ffec0",
+  "_shrinkwrap": null,
+  "_spec": "amcharts3-react@github:amcharts/amcharts3-react",
+  "_where": "/Users/rafalradolinski/Projects/auth0/redux-auth0-master",
+  "bugs": {
+    "url": "https://github.com/amcharts/amcharts3-react/issues"
+  },
+  "dependencies": {},
+  "description": "Installation ============",
+  "devDependencies": {},
+  "gitHead": "86f7dc4624cf84e68eeb2d58948d1b5bbbee9a34",
+  "homepage": "https://github.com/amcharts/amcharts3-react#readme",
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "index.js",
+  "name": "amcharts3-react",
+  "optionalDependencies": {},
+  "readme": "Installation\n============\n\nIf you are using `<script>` tags\n--------------------------------\n\n1. Use `git` to download the `amcharts3-react` plugin:\n\n   ```\n   git clone https://github.com/amcharts/amcharts3-react.git\n   ```\n\n2. Include `react` and `react-dom`:\n\n   ```\n   <script src=\"https://unpkg.com/react@15.3.0/dist/react.min.js\"></script>\n   <script src=\"https://unpkg.com/react-dom@15.3.0/dist/react-dom.min.js\"></script>\n   ```\n\n3. Also include `amcharts`:\n\n   ```\n   <script src=\"https://www.amcharts.com/lib/3/amcharts.js\"></script>\n   <script src=\"https://www.amcharts.com/lib/3/serial.js\"></script>\n   <script src=\"https://www.amcharts.com/lib/3/themes/light.js\"></script>\n   ```\n\n4. Lastly include the `amcharts3-react` plugin:\n\n   ```\n   <script src=\"amcharts3-react/amcharts3-react.js\"></script>\n   ```\n\nIf you are using a bundler like Webpack or Browserify\n-----------------------------------------------------\n\n1. Create a `package.json` which includes `react`, `react-dom`, `amcharts/amcharts3`, and `amcharts/amcharts3-react`:\n\n   ```\n   {\n     \"dependencies\": {\n       \"react\": \"^15.3.0\",\n       \"react-dom\": \"^15.3.0\",\n       \"amcharts3\": \"amcharts/amcharts3\",\n       \"amcharts3-react\": \"amcharts/amcharts3-react\"\n     }\n   }\n   ```\n\n2. Run `npm install`\n\n3. You can now import the `amcharts3-react` plugin:\n\n   ```\n   var AmCharts = require(\"amcharts3-react\");\n   ```\n\n   Note: when using the plugin, you must use `AmCharts` rather than `AmCharts.React`\n\n4. You will probably need to specify the [path](https://docs.amcharts.com/3/javascriptcharts/AmSerialChart#path) property, so that AmCharts can find the appropriate images:\n\n   ```\n   React.createElement(AmCharts, {\n     \"path\": \"node_modules/amcharts3/amcharts\"\n   })\n   ```\n\nUsage\n=====\n\nUse the `AmCharts.React` component in your React programs:\n\n```\nReact.createElement(AmCharts.React, {\n  \"type\": \"serial\",\n  \"theme\": \"light\",\n  \"graphs\": [...],\n  \"dataProvider\": [...]\n})\n```\n\nOr alternatively if you are using JSX:\n\n```\n<AmCharts.React\n  type=\"serial\"\n  theme=\"light\"\n  graphs={[...]}\n  dataProvider={[...]} />\n```\n\nThe configuration is exactly the same as the [AmCharts.makeChart](https://docs.amcharts.com/3/javascriptcharts/AmCharts#makeChart) method.\n\n----\n\nYou can also store the chart configuration separately:\n\n```\nvar config = {\n  \"type\": \"serial\",\n  \"theme\": \"light\",\n  \"graphs\": [...],\n  \"dataProvider\": [...]\n};\n```\n\n```\nReact.createElement(AmCharts.React, config)\n```\n\nOr alternatively if you are using JSX:\n\n```\n<AmCharts.React {...config} />\n```\n\n----\n\nChanges to the configuration are automatically detected when rendering (you do not need to call [validateNow](https://docs.amcharts.com/3/javascriptcharts/AmSerialChart#validateNow) or [validateData](https://docs.amcharts.com/3/javascriptcharts/AmSerialChart#validateData)).\n\nIn addition, this plugin automatically generates an `id`, so you do not need to specify it.\n\nYou can see some example React programs in the `examples` folder. It updates the chart's `dataProvider` every 3 seconds.\n\n\n## Changelog\n\n### 1.1.1\n* Fixing an [issue with peerDependencies](https://github.com/npm/npm/issues/3218)\n\n### 1.1.0\n* Adding in support for npm / webpack\n\n### 1.0.0\n* Initial release\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amcharts/amcharts3-react.git"
+  },
+  "version": "1.1.1"
+}

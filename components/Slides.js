@@ -6,7 +6,6 @@ import {
   Col,
   Grid,
   Icon,
-  Link,
   Form,
   Panel,
   Button,
@@ -19,8 +18,12 @@ import {
   PanelFooter,
   PanelContainer,
 } from '@sketchpixy/rubix'
-import { submitTestAnswer, typeTestAnswer, prepareResults } from '../actions';
-import '../public/css/slides.css'
+import {
+  submitTestAnswer,
+  typeTestAnswer,
+  prepareResults,
+  saveResult
+} from '../actions';
 
 class Slides extends React.Component {
   constructor() {
@@ -29,7 +32,6 @@ class Slides extends React.Component {
     this.navigateNext = this.navigateNext.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.submitAnswer = this.submitAnswer.bind(this)
-    this.showHints = this.showHints.bind(this)
   }
 
   submitAnswer(event) {
@@ -47,10 +49,6 @@ class Slides extends React.Component {
     };
 
     this.props.typeTestAnswer(answer)
-  }
-
-  showHints(e) {
-    console.log('show hints!', e.target.onclick);
   }
 
   navigateNext() {
@@ -88,29 +86,33 @@ class Slides extends React.Component {
         }
         else {
           return (
-            <span>
+            <span key={i+'_span'+that.props.params.id}>
               <input
                 type="text"
-                key={i+'_'+that.props.params.id}
+                key={i+'_input'+that.props.params.id}
                 name={i}
                 className="test-input-inline"
                 onChange={that.handleChange}
               />
-            <OverlayTrigger
-              trigger="click"
-              onClick={that.showHints}
-              overlay={
-                <Popover title='Hints:' id='popover'>
-                  {
-                    that.props.slides[that.props.params.id-1][i].hints.map(function(hint) {
-                      return (
-                        <p>{hint.toUpperCase()}</p>
-                      )
-                    })
-                  }
-                </Popover>}>
-              <Icon key={i+'_icon'+that.props.params.id} className="fg-green show-hint icon-simple-line-icons-question rubix-icon"/>
-            </OverlayTrigger>&nbsp;
+              <OverlayTrigger
+                trigger="click"
+                key={i+'_ot'+that.props.params.id}
+                overlay={
+                  <Popover title='Hints:' id='popover' key={i+'_pop'+that.props.params.id}>
+                    {
+                      that.props.slides[that.props.params.id-1][i].hints.map(function(hint) {
+                        return (
+                          <p key={i+hint+'_p'+that.props.params.id}>{hint.toUpperCase()}</p>
+                        )
+                      })
+                    }
+                  </Popover>}>
+                <Icon
+                  key={i+'_icon'+that.props.params.id}
+                  className="fg-green show-hint icon-simple-line-icons-question rubix-icon"
+                  glyph=""
+                />
+              </OverlayTrigger>&nbsp;
             </span>
           )
         }
@@ -160,9 +162,15 @@ class Slides extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { slides } = state.tests;
-  const { isAuthenticated } = state.auth;
-  return { slides, isAuthenticated };
+  const { slides, wordPacket } = state.tests;
+  const { isAuthenticated, profile } = state.auth;
+
+  return { slides, isAuthenticated, profile, wordPacket };
 }
 
-export default connect(mapStateToProps, {submitTestAnswer, prepareResults, typeTestAnswer})(Slides)
+export default connect(mapStateToProps, {
+  submitTestAnswer,
+  prepareResults,
+  typeTestAnswer,
+  saveResult
+})(Slides)

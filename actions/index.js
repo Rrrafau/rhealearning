@@ -1,5 +1,87 @@
 import { CALL_API } from '../middleware/api'
 
+import axios from 'axios';
+
+let GraphQLEndpoint = 'http://localhost:3000/api'
+
+export const ALL_RESULTS = 'ALL_RESULTS'
+export const SAVE_RESULT = 'SAVE_RESULT'
+
+export function getResults(variables) {
+  let query = `
+  	query getResults($userID: String!) {
+  	  results(userID: $userID) {
+    		score
+        type
+        completionTimestamp
+  	  }
+  	}
+    `;
+
+  return dispatch => {
+  	return axios.post(GraphQLEndpoint, {
+  	  query,
+      variables
+  	}).then((result) => {
+  	  if (result.data.errors) {
+    		dispatch({
+    		  type: ALL_RESULTS,
+    		  error: result.data.errors,
+    		})
+    		return;
+  	  }
+
+  	  dispatch({
+    		type: ALL_RESULTS,
+    		result: result.data.data.results,
+  	  });
+  	});
+  };
+}
+
+export function saveResult(variables) {
+  let query = `
+	mutation saveResultMutation(
+    $hash: String!
+    $userID: String!
+    $score: Int!
+    $type: String!
+  ) {
+	  saveResult(
+      hash: $hash
+      userID: $userID
+      score: $score
+      type: $type
+    ) {
+  		_id
+      userID
+      score
+      hash
+      type
+	  }
+	}
+  `;
+
+  return dispatch => {
+  	return axios.post(GraphQLEndpoint, {
+  	  query,
+  	  variables,
+  	}).then((result) => {
+  	  if (result.data.errors) {
+  		dispatch({
+  		  type: SAVE_RESULT,
+  		  error: result.data.errors,
+  		})
+  		  return;
+  	  }
+  	  dispatch({
+    		type: SAVE_RESULT,
+    		result: result.data.data.saveResult,
+  	  });
+  	});
+  };
+}
+
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_ERROR = 'LOGIN_ERROR'
 
@@ -64,16 +146,17 @@ export function setEntryTextValue(value) {
 
 export const CREATE_TEST_SLIDES = 'CREATE_TEST_SLIDES'
 
-function generateSlides(slides) {
+function generateSlides(slides, wordPacket) {
   return {
     type: CREATE_TEST_SLIDES,
-    slides
+    slides,
+    wordPacket
   }
 }
 
-export function createTestSlides(slides) {
+export function createTestSlides(slides, wordPacket) {
   return dispatch => {
-    return dispatch(generateSlides(slides))
+    return dispatch(generateSlides(slides, wordPacket))
   }
 }
 

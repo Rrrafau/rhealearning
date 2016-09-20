@@ -2,39 +2,53 @@ import * as ActionTypes from '../actions'
 import { routerReducer as routing } from 'react-router-redux'
 import { combineReducers } from 'redux'
 
+let browserStorage = typeof localStorage === 'undefined' ? null : localStorage
+
 const jwtDecode = require('jwt-decode')
 const initialState = {
-  // rawText: 'This is some raw text',
   isAuthenticated: checkTokenExpiry(),
   profile: getProfile(),
   error: '',
   slides: [],
+  wordPacket: '',
+  testType: '',
   rawText: '',
   hintsUsed: 0,
   results: {
     wrong: 0,
     right: 0,
     correct: [],
-    incorrect: []
+    incorrect: [],
+    score: 0
   }
 }
 
 function checkTokenExpiry() {
-  let jwt = localStorage.getItem('id_token')
-  if(jwt) {
-    let jwtExp = jwtDecode(jwt).exp;
-    let expiryDate = new Date(0);
-    expiryDate.setUTCSeconds(jwtExp);
+  if(browserStorage) {
+    let jwt = localStorage.getItem('id_token')
+    if(jwt) {
+      let jwtExp = jwtDecode(jwt).exp;
+      let expiryDate = new Date(0);
+      expiryDate.setUTCSeconds(jwtExp);
 
-    if(new Date() < expiryDate) {
-      return true;
+      if(new Date() < expiryDate) {
+        return true;
+      }
     }
+    return false;
   }
-  return false;
+  else {
+    return false;
+  }
 }
 
 function getProfile() {
-  return JSON.parse(localStorage.getItem('profile'));
+  if(browserStorage) {
+    return JSON.parse(localStorage.getItem('profile'));
+  }
+  else {
+    return {}
+  }
 }
 
 
@@ -44,7 +58,8 @@ function prepareResults(slides) {
     wrong: 0,
     right: 0,
     correct: [],
-    incorrect: []
+    incorrect: [],
+    percentage: 0
   }
 
   for(let key in slides) {
@@ -64,6 +79,10 @@ function prepareResults(slides) {
     }
   }
 
+  if(results.right > 0 && results.total > 0) {
+    results.score = Math.floor(1*(results.right/results.total)*100)
+  }
+
   return results;
 }
 
@@ -72,7 +91,8 @@ function tests(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.SET_RAW_TEXT_VALUE:
       return Object.assign({}, state, {
-        rawText: action.rawText
+        rawText: action.rawText,
+        wordPacket: ''
       })
     case ActionTypes.SUBMIT_TEST_ANSWER:
       for(let key in slides) {
@@ -96,8 +116,18 @@ function tests(state = initialState, action) {
       })
     case ActionTypes.CREATE_TEST_SLIDES:
       return Object.assign({}, state, {
-        slides: action.slides
+        slides: action.slides,
+        wordPacket: action.wordPacket
       })
+    case ActionTypes.ALL_RESULTS:
+      for(let i = 0; i < action.result.length; i++ ) {
+        action.result[i].date = new Date(action.result[i].completionTimestamp*1000)
+      }
+  	  return Object.assign({}, state, {
+  		  userResults: action.result
+  	  })
+  	case ActionTypes.SAVE_RESULT:
+  	  return Object.assign({}, state, {})
     default:
       return state
     }

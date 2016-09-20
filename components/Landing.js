@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import TextArea from './TextArea'
-import '../public/css/landing.css';
 
 function mapStateToProps(state) {
   const { auth } = state
@@ -18,6 +17,7 @@ class Landing extends Component {
   }
   render() {
     const { profile, isAuthenticated } = this.props
+    
     return (
       <div>
         <div>

@@ -20,7 +20,7 @@ class Brand extends React.Component {
       <Navbar.Header {...this.props}>
         <Navbar.Brand tabIndex='-1'>
           <Link to="/">
-            <img src={require('../public/imgs/common/logos.png')} alt='Leengo' width='111' />
+            <img src='/public/imgs/common/logos.png' alt='Leengo' width='111' />
           </Link>
         </Navbar.Brand>
       </Navbar.Header>
