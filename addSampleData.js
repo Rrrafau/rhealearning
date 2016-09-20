@@ -2,7 +2,7 @@ const pmongo = require('promised-mongo');
 const crypto = require('crypto');
 const moment = require('moment');
 
-const db = pmongo('mongodb://139.162.43.212/rheaenglish', ['results']);
+const db = pmongo('mongodb://localhost/rheaenglish', ['results']);
 
 types = [
   'prepositions',
@@ -25,6 +25,7 @@ let getRandomInt = function(min, max) {
 }
 
 let randomDate = function(start, end) {
+    console.log(start, end)
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 }
 
@@ -33,13 +34,14 @@ let i = 0;
 function addRecord() {
   let result = {};
   // let date = randomDate(new Date(2015, 0, 1), new Date())
-  let date1 = moment('2015-05-01')
-  date.add(8*(i || 1), 'hours')
+  let date1 = moment('2015-10-24')
+  date1.add(8*(i || 1), 'hours')
 
-  let date2 = moment('2015-05-01')
+  let date2 = moment('2015-10-24')
   date2.add(8*(i+1), 'hours')
 
   let date = randomDate(new Date(date1), new Date(date2))
+
   console.log(date)
   result['type'] = types[getRandomInt(0, 10)]
   result['score'] = getRandomInt(50+i/50, 100)
@@ -63,9 +65,9 @@ function addRecord() {
 }
 
 function setup() {
-  db.results.drop().then(function() {
+  // db.results.drop().then(function() {
     addRecord()
-  })
+  // })
 }
 
 setup();
