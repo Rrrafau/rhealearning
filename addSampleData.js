@@ -34,10 +34,10 @@ let i = 0;
 function addRecord() {
   let result = {};
   // let date = randomDate(new Date(2015, 0, 1), new Date())
-  let date1 = moment().substract(333, days)
+  let date1 = moment().substract(333, 'days')
   date1.add(8*(i || 1), 'hours')
 
-  let date2 = moment().substract(333, days)
+  let date2 = moment().substract(333, 'days')
   date2.add(8*(i+1), 'hours')
 
   let date = randomDate(new Date(date1), new Date(date2))
