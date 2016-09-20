@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
-import { browserHistory } from 'react-router'
+import { browserHistory, Link } from 'react-router'
 import { connect } from 'react-redux'
+import axios from 'axios'
 import {
   Row,
   Col,
@@ -277,6 +278,11 @@ class TextArea extends React.Component {
                   <Row>
                     <Col xs={12}>
                       <br/>
+                      <div>
+                        <Link to="https://en.wikipedia.org/wiki/Special:Random" target="_blank" onClick={(event) => {event.preventDefault(); window.open("https://en.wikipedia.org/wiki/Special:Random");}} >
+                        <Button outlined onClick={this.getRandom} className='pull-left' bsStyle='darkblue'>Feeling lazy? Grab a random article!</Button>
+                        </Link>
+                      </div>
                       <div>
                         <Button outlined onClick={this.open} bsStyle='darkgreen'>Create Test! (Text will be randomized)</Button>
                       </div>
