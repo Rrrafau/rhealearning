@@ -34,17 +34,16 @@ let i = 0;
 function addRecord() {
   let result = {};
   // let date = randomDate(new Date(2015, 0, 1), new Date())
-  let date1 = moment('2015-10-24')
+  let date1 = moment().substract(333, days)
   date1.add(8*(i || 1), 'hours')
 
-  let date2 = moment('2015-10-24')
+  let date2 = moment().substract(333, days)
   date2.add(8*(i+1), 'hours')
 
   let date = randomDate(new Date(date1), new Date(date2))
 
-  console.log(date)
   result['type'] = types[getRandomInt(0, 10)]
-  result['score'] = getRandomInt(50+i/50, 100)
+  result['score'] = getRandomInt((50+i/50)-(i/100), ((50+i/50+10) > 100 ? 100 : (50+i/50+10))-(i/100))
   result['hash'] = crypto.createHash('md5').update(date.getTime().toString() + result['type']).digest("hex")
   result['userID'] = 'radolasd@gmail.com'
   result['completionTimestamp'] = parseInt((date.getTime() / 1000).toFixed(0), 10)

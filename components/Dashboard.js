@@ -36,7 +36,7 @@ class TestsTable extends React.Component {
     let recentTests = []
 
     if(this.props.data.length) {
-      for(let i = (this.props.data.length-1); i > this.props.data.length-6; i--) {
+      for(let i = (this.props.data.length-1); i > this.props.data.length-6 && i >= 0; i--) {
         let title = ''
 
         switch(this.props.data[i].type) {
