@@ -35,49 +35,51 @@ class TestsTable extends React.Component {
   componentWillMount() {
     let recentTests = []
 
-    for(let i = (this.props.data.length-1); i > this.props.data.length-6; i--) {
-      let title = ''
+    if(this.props.data.length) {
+      for(let i = (this.props.data.length-1); i > this.props.data.length-6; i--) {
+        let title = ''
 
-      switch(this.props.data[i].type) {
-        case 'irregulars':
-          title = "Irregular Verbs"
-          break;
-        case 'linking':
-          title = "Linking Verbs"
-          break;
-        case 'helping':
-          title = "Helping Verbs"
-          break;
-        case 'prepositions':
-          title = "Prepositions"
-          break;
-        case 'pronouns_demonstrative':
-          title = "Pronouns Demonstrative"
-          break;
-        case 'pronouns_indefinite':
-          title = "Pronouns Indefinite"
-          break;
-        case 'pronouns_interrogative':
-          title = "Pronouns Interrogative"
-          break;
-        case 'pronouns_personal':
-          title = "Pronouns Personal"
-          break;
-        case 'pronouns_possesive':
-          title = "Pronouns Possesive"
-          break;
-        case 'pronouns_reflexive':
-          title = "Pronouns Reflexive"
-          break;
-        case 'pronouns_relative':
-          title = "Pronouns Relative"
-          break;
+        switch(this.props.data[i].type) {
+          case 'irregulars':
+            title = "Irregular Verbs"
+            break;
+          case 'linking':
+            title = "Linking Verbs"
+            break;
+          case 'helping':
+            title = "Helping Verbs"
+            break;
+          case 'prepositions':
+            title = "Prepositions"
+            break;
+          case 'pronouns_demonstrative':
+            title = "Pronouns Demonstrative"
+            break;
+          case 'pronouns_indefinite':
+            title = "Pronouns Indefinite"
+            break;
+          case 'pronouns_interrogative':
+            title = "Pronouns Interrogative"
+            break;
+          case 'pronouns_personal':
+            title = "Pronouns Personal"
+            break;
+          case 'pronouns_possesive':
+            title = "Pronouns Possesive"
+            break;
+          case 'pronouns_reflexive':
+            title = "Pronouns Reflexive"
+            break;
+          case 'pronouns_relative':
+            title = "Pronouns Relative"
+            break;
 
+        }
+
+        this.props.data[i].title = title
+
+        recentTests.push(this.props.data[i])
       }
-
-      this.props.data[i].title = title
-
-      recentTests.push(this.props.data[i])
     }
 
     this.setState({recentTests})
@@ -485,20 +487,25 @@ class Dashboard extends React.Component {
   }
 
   getAvgPerDay() {
-    let a = moment(this.state.data[0].date);
-    let b = moment(this.state.data[this.state.data.length-1].date);
-    let days = b.diff(a, 'days')+1;
+    if(this.state.data.length) {
+      let a = moment(this.state.data[0].date);
+      let b = moment(this.state.data[this.state.data.length-1].date);
+      let days = b.diff(a, 'days')+1;
 
-    let avg = parseFloat((this.state.data.length/days).toFixed(1))
+      let avg = parseFloat((this.state.data.length/days).toFixed(1))
 
-    if(avg === 1) {
-      avg = '1 test'
+      if(avg === 1) {
+        avg = '1 test'
+      }
+      else {
+        avg = avg + ' tests'
+      }
+
+      return avg
     }
     else {
-      avg = avg + ' tests'
+      return '0 tests'
     }
-
-    return avg
   }
 
   setChartOption(option, cb) {
@@ -523,10 +530,12 @@ class Dashboard extends React.Component {
   	   query, variables
   	}).then((result) => {
       let data = result.data.data.results
-      for(let i = 0; i < data.length; i++ ) {
-        data[i].date = new Date(data[i].completionTimestamp*1000)
-      }
 
+      if(data.length) {
+        for(let i = 0; i < data.length; i++ ) {
+          data[i].date = new Date(data[i].completionTimestamp*1000)
+        }
+      }
       // set initial data
       this.setState({data: data, allData: data}, function() {
         this.loadData()
