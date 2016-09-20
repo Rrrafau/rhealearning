@@ -148,7 +148,7 @@ class Dashboard extends React.Component {
       pronouns_reflexive: true,
       pronouns_demonstrative: true,
       pronouns_indefinite: true,
-      combine: false,
+      combine: true,
       pastCombined: 0,
       graphs: [],
       categories: [
@@ -680,7 +680,7 @@ class Dashboard extends React.Component {
                             </Checkbox>
                           </Col>
                           <Col sm={2}>
-                            <Checkbox inline onChange={this.handleCheckboxChange}
+                            <Checkbox inline onChange={this.handleCheckboxChange} defaultChecked
                               name='combine'>
                               Combine
                             </Checkbox>
