@@ -555,7 +555,7 @@ class Dashboard extends React.Component {
                     <Col xs={12}>
                     <h2>Welcome to your <span className="text-blue">Dashboard</span>, {this.props.profile.given_name}!</h2>
                     <h3 className="text-lighter">Below you can find your <span className="text-green">stats</span>.
-                      Our robust chart will give you an insight to your <span className="text-purple">progress and results</span>.
+                      Our robust chart will give you an insight to your <span className="text-orange">progress and results</span>.
                       Play around with the settings and find areas where you can <span className="text-green">improve!</span> </h3>
                     <hr></hr>
                     </Col>
