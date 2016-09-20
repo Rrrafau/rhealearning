@@ -707,6 +707,8 @@ class Dashboard extends React.Component {
                           "axisAlpha": 0.2,
                           "dashLength": 1,
                           "unit": "%",
+                          "minimum": 0,
+                          "maximum": 100,
                           "position": "left",
                           "title": "Results"
                         }]}
