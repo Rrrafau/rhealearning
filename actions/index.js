@@ -2,7 +2,7 @@ import { CALL_API } from '../middleware/api'
 
 import axios from 'axios';
 
-let GraphQLEndpoint = 'http://rheaenglish/api'
+let GraphQLEndpoint = 'http://rheaenglish.com/api'
 
 export const ALL_RESULTS = 'ALL_RESULTS'
 export const SAVE_RESULT = 'SAVE_RESULT'
