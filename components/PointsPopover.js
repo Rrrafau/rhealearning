@@ -10,9 +10,9 @@ export default class PointsPopover extends React.Component {
     return (
       <OverlayTrigger
         trigger="click"
-        id="answerpopover"
+
         overlay={
-          <Popover title='Time Popover'>
+          <Popover title='Time Popover' id="pointspopover">
             <p>
               Calculating points is really down to the secret sauce of our program! <br />
               Nevertheless we can share a couple of details to help you work on your

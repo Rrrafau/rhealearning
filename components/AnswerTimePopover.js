@@ -10,9 +10,9 @@ export default class AnswerTimePopover extends React.Component {
     return (
       <OverlayTrigger
         trigger="click"
-        id="answerpopover"
+
         overlay={
-          <Popover title='Time Popover'>
+          <Popover title='Time Popover' id="answerpopover">
             <p>
               Basically an amount of time it takes you to answer a question combined with
               penalties you get from submitting wrong answers.

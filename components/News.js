@@ -23,10 +23,10 @@ export default class AnswerTimePopover extends React.Component {
             </PanelHeader>
             <PanelBody>
               <Grid>
-                <Col xs={12} className="text-lighter">
+                <Col xs={12}>
                   <h3>Big News, we've added tons of new features and fixes:</h3>
                   <h4>New scoring system (alongside % complete)</h4>
-                  <img style={{opacity: 0.5}} width="350px" src='/public/imgs/common/1.png' />
+                  <img style={{opacity: 0.5}} src='/public/imgs/common/2.png' />
                   <p>
                     Each time you complete a test, you will now receive points which
                     are caclulated based on complexity of the test and how well
@@ -42,11 +42,11 @@ export default class AnswerTimePopover extends React.Component {
                   </p>
                   <hr></hr>
                   <h4>Hints are now clickable</h4>
-                  <img style={{opacity: 0.5}} width="350px" src='/public/imgs/common/2.png' />
+                  <img style={{opacity: 0.5}} src='/public/imgs/common/1.png' />
                   <p>
                     Yes!!! We know you asked for it and we delivered! It's a small
                     improvement but it makes a huge difference! From now on you no longer
-                    need to type an answer, you can just click the hings icon and then
+                    need to type an answer, you can just click the hints icon and then
                     click the answer you think is correct, and the answer will get
                     submitted for you! Amazing, right! We're glad you're loving it!
                   </p>
