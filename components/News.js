@@ -26,7 +26,7 @@ export default class AnswerTimePopover extends React.Component {
                 <Col xs={12}>
                   <h3>Big News, we've added tons of new features and fixes:</h3>
                   <h4>New scoring system (alongside % complete)</h4>
-                  <img style={{opacity: 0.5}} src='/public/imgs/common/2.png' />
+                  <img src='/public/imgs/common/2.png' />
                   <p>
                     Each time you complete a test, you will now receive points which
                     are caclulated based on complexity of the test and how well
@@ -42,7 +42,7 @@ export default class AnswerTimePopover extends React.Component {
                   </p>
                   <hr></hr>
                   <h4>Hints are now clickable</h4>
-                  <img style={{opacity: 0.5}} src='/public/imgs/common/1.png' />
+                  <img src='/public/imgs/common/1.png' />
                   <p>
                     Yes!!! We know you asked for it and we delivered! It's a small
                     improvement but it makes a huge difference! From now on you no longer
