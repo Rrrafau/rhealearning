@@ -47,9 +47,7 @@ class Slides extends React.Component {
   bodyOnClick(event) {
     var trigger = this.refs.trigger;
     var overlayElem = ReactDOM.findDOMNode(this.refs.overlay);
-    // var isTargetInOverlay = event.target.closest(overlayElem).length > 0;
 
-      console.log(this.refs)
     if (trigger.state.show) {
         trigger.setState({
             show: false
@@ -74,6 +72,8 @@ class Slides extends React.Component {
     let that = this
 
     this.props.typeTestAnswer(answer)
+
+    this.refs.trigger.setState({show: false})
   }
 
   handleChange(event) {
