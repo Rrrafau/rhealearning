@@ -6,6 +6,8 @@ import moment from 'moment'
 import _ from 'lodash'
 const isBrowser = typeof window !== 'undefined';
 const AmCharts = isBrowser ? require( 'amcharts3-react') : undefined;
+import AnswerTimePopover from './AnswerTimePopover'
+import PointsPopover from './PointsPopover'
 
 import {
   Row,
@@ -292,6 +294,31 @@ class Dashboard extends React.Component {
     })
   }
 
+  setAvgTime() {
+    let avgs = []
+    let result = 0
+    _.each(this.state.data, function(datum) {
+      avgs.push(datum.avgTimePerAnswer)
+    })
+
+    result = (avgs.reduce((a, b) => a + b, 0)/avgs.length).toFixed(2)
+
+    return result
+  }
+
+  setPoints() {
+    let points = []
+    let result = 0
+
+    _.each(this.state.data, function(datum) {
+      points.push(datum.points)
+    })
+
+    result = points.reduce((a, b) => a + b, 0)
+
+    return result
+  }
+
   loadData() {
     let that = this
 
@@ -308,10 +335,15 @@ class Dashboard extends React.Component {
     let chartData = this.setChartData(chunkedData)
 
     let graphs = this.setGraphs()
-    console.log(chartData);
+
     this.setState({data}, function() {
       let totals = this.calculateTotals()
-      this.setState({chunkedData, chartData, graphs, totals}, function() {
+
+      let avgTime = this.setAvgTime()
+
+      let points = this.setPoints()
+
+      this.setState({chunkedData, points, avgTime, chartData, graphs, totals}, function() {
         let pastCombined = this.getPastCombined()
         this.setState({pastCombined})
       })
@@ -521,6 +553,8 @@ class Dashboard extends React.Component {
     	  results(userID: $userID) {
       		score
           type
+          points
+          avgTimePerAnswer
           completionTimestamp
     	  }
     	}
@@ -572,6 +606,8 @@ class Dashboard extends React.Component {
                             <option value="10000">Max</option>
                           </FormControl>
                         </FormGroup>
+                        <h4>Total points: <span className="text-blue">{this.state.points}</span> <PointsPopover /></h4>
+                        <h4>Average time per <b>right</b> answer: <span className="text-blue">{this.state.avgTime}s</span> <AnswerTimePopover /></h4>
                       </Col>
                       <Col xs={6} componentClass={ControlLabel}><h4>Average Results:</h4>
                         <div className="combinedAvg">Combined Average:&nbsp;

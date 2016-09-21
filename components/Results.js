@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import crypto from 'crypto'
+import PointsPopover from './PointsPopover'
 
 import {
   Row,
@@ -179,7 +180,7 @@ class Results extends React.Component {
                     <h2>You've entered <span className="result-correct">{results.right} </span>
                       words <span className="result-correct">correctly</span> out of <span className="results-count">{results.total}</span> in total.</h2>
                     {this.getPercenage()}
-                    <h3>You're getting <b className="text-blue">{points}</b> points for this test.</h3>
+                    <h3>You're getting <b className="text-blue">{points}</b> points for this test. <PointsPopover /></h3>
                     <h3>Review your answers for: <i className="review-answers">{this.getTestType()}</i></h3>
                     <hr />
                     <div className="results-text">

@@ -5,7 +5,7 @@ import {
   Sidebar, SidebarNav, SidebarNavItem,
   SidebarControls, SidebarControlBtn,
   Grid, Row, Col, FormControl,
-  Label, Progress,
+  Label, Progress, Badge,
   SidebarDivider
 } from '@sketchpixy/rubix';
 
@@ -57,9 +57,9 @@ class SidebarContainer extends React.Component {
               <div className="sidebar-nav-container">
                 <ul style={{marginBottom:0}} className="sidebar-nav">
                   <li style={{display:'block',pointerEvents:'all',height:45}} tabIndex="-1" className="sidebar-nav-item">
-                    <Link to="/" style={{height:45}}>
+                    <Link to="/news" style={{height:45}}>
                       <span className="icon-fontello-newspaper-1 rubix-icon"></span>
-                      <span className="name">News Feed</span>
+                      <span className="name">News Feed <Badge>1</Badge></span>
                     </Link>
                   </li>
                 </ul>
