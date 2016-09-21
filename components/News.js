@@ -30,7 +30,7 @@ export default class AnswerTimePopover extends React.Component {
                   <p>
                     Each time you complete a test, you will now receive points which
                     are caclulated based on complexity of the test and how well
-                    have you done:
+                    have you done.
                   </p>
                   <hr></hr>
                   <h4>Average time per RIGHT answer</h4>
