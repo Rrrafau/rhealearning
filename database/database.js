@@ -17,11 +17,11 @@ function getResults(userID) {
   return results;
 }
 
-function saveResult(hash, score, userID, type) {
+function saveResult(hash, score, userID, type, points, avgTimePerAnswer) {
   var datetime = new Date();
   return db.results.insert({
     completionDate: datetime,
     completionTimestamp: parseInt((datetime.getTime() / 1000).toFixed(0), 10),
-    hash, score, userID, type
+    hash, score, userID, type, points, avgTimePerAnswer
   });
 }

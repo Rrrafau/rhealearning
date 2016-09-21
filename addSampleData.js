@@ -49,6 +49,8 @@ function addRecord() {
   result['userID'] = 'radolasd@gmail.com'
   result['completionTimestamp'] = parseInt((date.getTime() / 1000).toFixed(0), 10)
   result['completionDate'] = date
+  result['points'] = getRandomInt(50, 300)
+  result['avgTimePerAnswer'] = getRandomInt(5, 15)
 
   db.results.update({hash: result['hash']}, {$set: result}, {upsert: true}).then( function() {
     i++

@@ -33,7 +33,9 @@ class Results extends React.Component {
         hash: crypto.createHash('md5').update(data).digest("hex"),
         score: this.props.results.score,
         type: this.props.wordPacket,
-        userID: this.props.profile.email
+        userID: this.props.profile.email,
+        points: this.props.points,
+        avgTimePerAnswer: this.props.avgTimePerAnswer
       })
     }
   }
@@ -164,8 +166,8 @@ class Results extends React.Component {
   }
 
   render() {
-    const { results, slides, wordPacket } = this.props
-
+    const { results, slides, wordPacket, points } = this.props
+    console.log(points, this.props)
     return (
       <div>
         <PanelContainer noOverflow>
@@ -177,7 +179,7 @@ class Results extends React.Component {
                     <h2>You've entered <span className="result-correct">{results.right} </span>
                       words <span className="result-correct">correctly</span> out of <span className="results-count">{results.total}</span> in total.</h2>
                     {this.getPercenage()}
-
+                    <h3>You're getting <b className="text-blue">{points}</b> points for this test.</h3>
                     <h3>Review your answers for: <i className="review-answers">{this.getTestType()}</i></h3>
                     <hr />
                     <div className="results-text">
@@ -242,10 +244,12 @@ class Results extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { results, slides, wordPacket, rawText } = state.tests;
+  const { results, points, avgTimePerAnswer, slides, wordPacket, rawText } = state.tests;
   const { isAuthenticated, profile } = state.auth;
   return {
     results,
+    points,
+    avgTimePerAnswer,
     slides,
     profile,
     wordPacket,

@@ -1,6 +1,8 @@
 import * as ActionTypes from '../actions'
 import { routerReducer as routing } from 'react-router-redux'
 import { combineReducers } from 'redux'
+import _ from 'lodash'
+import moment from 'moment'
 
 let browserStorage = typeof localStorage === 'undefined' ? null : localStorage
 
@@ -12,7 +14,11 @@ const initialState = {
   slides: [],
   wordPacket: '',
   rawText: '',
+  timeStart: null,
+  timeEnd: null,
   hintsUsed: 0,
+  avgTimePerAnswer: 0,
+  points: 0,
   results: {
     wrong: 0,
     right: 0,
@@ -51,7 +57,7 @@ function getProfile() {
 }
 
 
-function prepareResults(slides) {
+function prepareResults(slides, state) {
   let results = {
     total: 0,
     wrong: 0,
@@ -61,28 +67,67 @@ function prepareResults(slides) {
     percentage: 0
   }
 
+  let points = 0
+  let questions = 0
+  let answers = []
+
   for(let key in slides) {
     for(let i = 0; i < slides[key].length; i++) {
       if(slides[key][i].hidden) {
         results.total++;
+        answers.push(slides[key][i].word.toLowerCase())
 
         if(slides[key][i].answer.toLowerCase() === slides[key][i].word.toLowerCase()) {
           results.right++;
           results.correct.push(Object.assign([], slides[key]));
+          points+=5
         }
         else {
           results.wrong++;
           results.incorrect.push(Object.assign([], slides[key]));
+          points-=2
         }
       }
     }
   }
 
+  let wordCount = 0;
+
+  _.each(slides, function(slide) {
+    wordCount += slide.length
+  })
+
+  let start = moment(state.timeStart);
+  let end = moment(new Date());
+
+  let time = end.diff(start, 'seconds')
+
+  points = wordCount + results.total*7
+
+  if(time > (results.total*7)) { points-=(time-((results.total*3.5)*2)) }
+
+  points = points*((results.right/results.total))
+  points = points < 0 ? 0 : points;
+
+  answers = _.uniq(answers)
+
+  let rightAnswers = _.uniq(results.right)
+
+  if(results.right > 0) {
+    points = points+(points*(answers.length/4))
+    points = points+(points*(rightAnswers.length/2))
+  }
+
+  let avgTimePerAnswer = (time/results.total)+((results.wrong*7/results.total))
+
+  avgTimePerAnswer = parseFloat(avgTimePerAnswer.toFixed(2))
+  points = parseInt(points, 10)
+  
   if(results.right > 0 && results.total > 0) {
     results.score = Math.floor(1*(results.right/results.total)*100)
   }
 
-  return results;
+  return {results, avgTimePerAnswer, points};
 }
 
 function cleanText(text) {
@@ -108,9 +153,12 @@ function tests(state = initialState, action) {
         slides: slides
       })
       case ActionTypes.PREPARE_RESULTS:
-        let results = prepareResults(Object.assign({}, state.slides))
+        let results = prepareResults(Object.assign({}, state.slides), state)
+        console.log(results)
         return Object.assign({}, state, {
-          results: results
+          results: results.results,
+          points: results.points,
+          avgTimePerAnswer: results.avgTimePerAnswer
         })
     case ActionTypes.TYPE_TEST_ANSWER:
       slides[parseInt(action.answer.question, 10)][parseInt(action.answer.key, 10)].typing = action.answer.answer.toLowerCase()
@@ -121,6 +169,7 @@ function tests(state = initialState, action) {
     case ActionTypes.CREATE_TEST_SLIDES:
       return Object.assign({}, state, {
         slides: action.slides,
+        timeStart: new Date(),
         wordPacket: action.wordPacket
       })
     case ActionTypes.ALL_RESULTS:

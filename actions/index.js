@@ -2,8 +2,8 @@ import { CALL_API } from '../middleware/api'
 
 import axios from 'axios';
 
-let GraphQLEndpoint = 'http://rheaenglish.com/api'
-// let GraphQLEndpoint = 'http://localhost:3000/api'
+// let GraphQLEndpoint = 'http://rheaenglish.com/api'
+let GraphQLEndpoint = 'http://localhost:3000/api'
 export const ALL_RESULTS = 'ALL_RESULTS'
 export const SAVE_RESULT = 'SAVE_RESULT'
 
@@ -46,18 +46,24 @@ export function saveResult(variables) {
     $userID: String!
     $score: Int!
     $type: String!
+    $points: Int!
+    $avgTimePerAnswer: Float!
   ) {
 	  saveResult(
       hash: $hash
       userID: $userID
       score: $score
       type: $type
+      points: $points
+      avgTimePerAnswer: $avgTimePerAnswer
     ) {
   		_id
       userID
       score
       hash
       type
+      points
+      avgTimePerAnswer
 	  }
 	}
   `;

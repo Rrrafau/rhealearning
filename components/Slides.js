@@ -48,10 +48,12 @@ class Slides extends React.Component {
     var trigger = this.refs.trigger;
     var overlayElem = ReactDOM.findDOMNode(this.refs.overlay);
 
-    if (trigger.state.show) {
-        trigger.setState({
-            show: false
-        });
+    if(trigger && overlayElem) {
+      if (trigger.state.show) {
+          trigger.setState({
+              show: false
+          });
+      }
     }
   }
 
@@ -73,7 +75,12 @@ class Slides extends React.Component {
 
     this.props.typeTestAnswer(answer)
 
-    this.refs.trigger.setState({show: false})
+    // @todo learn how to do this properly
+    for(var i = 0; i < 1000; i++) {
+      if(this.refs['trigger'+i]) {
+        this.refs['trigger'+i].setState({show: false})
+      }
+    }
   }
 
   handleChange(event) {
@@ -133,10 +140,10 @@ class Slides extends React.Component {
               />
               <OverlayTrigger
                 trigger="click"
-                ref="trigger"
+                ref={"trigger"+i}
                 key={i+'_ot'+that.props.params.id}
                 overlay={
-                  <Popover title='Hints:' ref="overlay" key={i+'_pop'+that.props.params.id}>
+                  <Popover title='Hints:' id={i + '_' + word.value} ref={"overlay"+i} key={i+'_pop'+that.props.params.id}>
                     {
                       that.props.slides[that.props.params.id-1][i].hints.map(function(hint) {
                         return (

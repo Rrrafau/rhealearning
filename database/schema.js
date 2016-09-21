@@ -20,6 +20,20 @@ var resultType = new graphql.GraphQLObjectType({
         return score;
       }
     },
+    points: {
+      type: graphql.GraphQLInt,
+      resolve: function(_ref6) {
+        var points = _ref6.points;
+        return points;
+      }
+    },
+    avgTimePerAnswer: {
+      type: graphql.GraphQLFloat,
+      resolve: function(_ref7) {
+        var avgTimePerAnswer = _ref7.avgTimePerAnswer;
+        return avgTimePerAnswer;
+      }
+    },
     hash: {
       type: graphql.GraphQLString,
       resolve: function(_ref3) {
@@ -74,9 +88,11 @@ const mutationType = new graphql.GraphQLObjectType({
         score: { type: new graphql.GraphQLNonNull(graphql.GraphQLInt)},
         userID: { type: new graphql.GraphQLNonNull(graphql.GraphQLString)},
         type: { type: new graphql.GraphQLNonNull(graphql.GraphQLString)},
+        points: { type: new graphql.GraphQLNonNull(graphql.GraphQLInt)},
+        avgTimePerAnswer: { type: new graphql.GraphQLNonNull(graphql.GraphQLFloat)},
   	  },
-  	  resolve: (_, { hash, score, userID, type }) =>
-                  database.saveResult( hash, score, userID, type ),
+  	  resolve: (_, { hash, score, userID, type, points, avgTimePerAnswer }) =>
+                  database.saveResult( hash, score, userID, type, points, avgTimePerAnswer ),
   	},
   })
 })
