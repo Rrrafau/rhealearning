@@ -22,6 +22,7 @@ class Results extends React.Component {
     super();
     this.getPercenage = this.getPercenage.bind(this)
     this.restartTest = this.restartTest.bind(this)
+    this.getTestType = this.getTestType.bind(this)
   }
 
   componentWillMount() {
@@ -40,6 +41,34 @@ class Results extends React.Component {
   restartTest() {
     this.props.setEntryTextValue('')
     browserHistory.push('/')
+  }
+
+  getTestType() {
+    let wordPacket = this.props.wordPacket
+    let title = '';
+
+    switch(wordPacket) {
+      case 'prepositions':
+      case 'linking':
+      case 'helping':
+        title = _.capitalize(wordPacket) + ' ' + 'Verbs'
+        break
+      case 'irregulars':
+        title = 'Irregular Verbs'
+        break
+      case 'pronouns_relative':
+      case 'pronouns_personal':
+      case 'pronouns_interrogative':
+      case 'pronouns_possesive':
+      case 'pronouns_reflexive':
+      case 'pronouns_demonstrative':
+      case 'pronouns_indefinite':
+        title = wordPacket.split('_')
+        title = _.capitalize(title[1]) + ' ' + _.capitalize(title[0])
+        break
+    }
+
+    return title
   }
 
   getPercenage() {
@@ -135,7 +164,7 @@ class Results extends React.Component {
   }
 
   render() {
-    const { results, slides } = this.props
+    const { results, slides, wordPacket } = this.props
 
     return (
       <div>
@@ -149,10 +178,9 @@ class Results extends React.Component {
                       words <span className="result-correct">correctly</span> out of <span className="results-count">{results.total}</span> in total.</h2>
                     {this.getPercenage()}
 
-                    <h3 className="review-answers">Review your answers:</h3>
+                    <h3>Review your answers for: <i className="review-answers">{this.getTestType()}</i></h3>
                     <hr />
                     <div className="results-text">
-                    <h4>Test type: {this.props.testType}.</h4>
                     {slides.map(function(sentence, s) {
                       return (
                         <div key={'_div'+s}>
@@ -214,12 +242,11 @@ class Results extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { results, slides, wordPacket, testType, rawText } = state.tests;
+  const { results, slides, wordPacket, rawText } = state.tests;
   const { isAuthenticated, profile } = state.auth;
   return {
     results,
     slides,
-    testType,
     profile,
     wordPacket,
     isAuthenticated

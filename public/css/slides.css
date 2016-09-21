@@ -27,3 +27,7 @@
 .show-hint {
   cursor: pointer;
 }
+.popover-hint:hover {
+  cursor: pointer;
+  color: #e9a929;
+}

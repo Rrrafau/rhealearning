@@ -31,7 +31,7 @@ class Layout extends Component {
   render() {
     const { isAuthenticated, profile } = this.props
     return (
-      <MainContainer {...this.props}>
+      <MainContainer style="marginLeft: 0" {...this.props}>
         { isAuthenticated ? (
           <Sidebar
             isAuthenticated={isAuthenticated}

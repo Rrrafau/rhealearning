@@ -363,43 +363,43 @@ class TextArea extends React.Component {
                 </Col>
                 <Col xs={12}>
                   <FormGroup>
-                    <Button bsStyle='orange75' onClick={this.createPronounsDemonstrative} className="learnenglish-btn">Pronouns Demonstrative</Button>
+                    <Button bsStyle='orange75' onClick={this.createPronounsDemonstrative} className="learnenglish-btn">Demonstrative Pronouns</Button>
                     <p className="learnenglish-sample">(this, that, those, these)</p>
                   </FormGroup>
                 </Col>
                 <Col xs={12}>
                   <FormGroup>
-                    <Button bsStyle='brownishgray75' onClick={this.createPronounsIndefinite} className="learnenglish-btn">Pronouns Indefinite</Button>
+                    <Button bsStyle='brownishgray75' onClick={this.createPronounsIndefinite} className="learnenglish-btn">Indefinite Pronouns</Button>
                     <p className="learnenglish-sample">(e.g. anyone, anybody, each, either, any, etc.)</p>
                   </FormGroup>
                 </Col>
                 <Col xs={12}>
                   <FormGroup>
-                    <Button bsStyle='purple' onClick={this.createPronounsInterrogative} className="learnenglish-btn">Pronouns Interrogative</Button>
+                    <Button bsStyle='purple' onClick={this.createPronounsInterrogative} className="learnenglish-btn">Interrogative Pronouns</Button>
                     <p className="learnenglish-sample">(which, what, whose, whom, who)</p>
                   </FormGroup>
                 </Col>
                 <Col xs={12}>
                   <FormGroup>
-                    <Button bsStyle='deepred' onClick={this.createPronounsPersonal} className="learnenglish-btn">Pronouns Personal</Button>
+                    <Button bsStyle='deepred' onClick={this.createPronounsPersonal} className="learnenglish-btn">Personal Pronouns</Button>
                     <p className="learnenglish-sample">(he, she, they, it, etc.)</p>
                   </FormGroup>
                 </Col>
                 <Col xs={12}>
                   <FormGroup>
-                    <Button bsStyle='paleorange' onClick={this.createPronounsPossesive} className="learnenglish-btn">Pronouns Possesive</Button>
+                    <Button bsStyle='paleorange' onClick={this.createPronounsPossesive} className="learnenglish-btn">Possesive Pronouns</Button>
                     <p className="learnenglish-sample">(my, your, his, her, etc.)</p>
                   </FormGroup>
                 </Col>
                 <Col xs={12}>
                   <FormGroup>
-                    <Button bsStyle='darkgreen85' onClick={this.createPronounsReflexive} className="learnenglish-btn">Pronouns Reflexive</Button>
+                    <Button bsStyle='darkgreen85' onClick={this.createPronounsReflexive} className="learnenglish-btn">Reflexive Pronouns</Button>
                     <p className="learnenglish-sample">(e.g. myself, yourself, ourselves, etc.)</p>
                   </FormGroup>
                 </Col>
                 <Col xs={12}>
                   <FormGroup>
-                    <Button bsStyle='brightyellow75' onClick={this.createPronounsRelative} className="learnenglish-btn">Pronouns Relative</Button>
+                    <Button bsStyle='brightyellow75' onClick={this.createPronounsRelative} className="learnenglish-btn">Relative Pronouns</Button>
                     <p className="learnenglish-sample">(this, which, who, whose, etc.)</p>
                   </FormGroup>
                 </Col>

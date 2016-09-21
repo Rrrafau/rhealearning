@@ -11,7 +11,6 @@ const initialState = {
   error: '',
   slides: [],
   wordPacket: '',
-  testType: '',
   rawText: '',
   hintsUsed: 0,
   results: {
