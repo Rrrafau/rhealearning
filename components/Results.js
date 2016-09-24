@@ -168,7 +168,7 @@ class Results extends React.Component {
 
   render() {
     const { results, slides, wordPacket, points } = this.props
-    console.log(points, this.props)
+    
     return (
       <div>
         <PanelContainer noOverflow>

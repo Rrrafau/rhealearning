@@ -8,6 +8,7 @@ import Landing from '../components/Landing'
 import Slides from '../components/Slides'
 import Results from '../components/Results'
 import Dashboard from '../components/Dashboard'
+import ReportWriting from '../components/ReportWriting'
 import News from '../components/News'
 import configureStore from '../store/configureStore'
 
@@ -23,6 +24,7 @@ const appRoutes = () => (
     <IndexRoute component={Landing} />
     <Route path="/slides/:id" component={Slides} />
     <Route path="/results" component={Results} />
+    <Route path="/reportwriting" component={ReportWriting} />
     <Route path="/dashboard" component={Dashboard} />
     <Route path="/news" component={News} />
   </Route>

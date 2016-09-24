@@ -1,0 +1,198 @@
+{
+  "list": [
+    {
+      "name": "car brands",
+      "reports": [
+        {"name": "sales", "unit": ["dollar", "percent"], "multiplier": 1000000000, "range": [1, 200] },
+        {"name": "popularity", "unit": ["percent"], "multiplier": 1, "range": [1, 100] },
+        {"name": "price", "unit": ["dollar", "percent"], "multiplier": 1000, "range": [1, 100] },
+        {"name": "fuel usage", "unit": ["percent"], "multiplier": 1, "range": [1, 100] },
+        {"name": "polution", "unit": ["percent"], "multiplier": 1, "range": [1, 100] },
+        {"name": "market value", "unit": ["dollar", "percent"], "multiplier": 1000000000, "range": [1, 500] }
+      ],
+      "list": [
+        "toyota",
+        "mitsubishi",
+        "ford",
+        "chrysler",
+        "chevrolet",
+        "tesla",
+        "mazda",
+        "alfa romeo",
+        "mercedes",
+        "bmw",
+        "audi",
+        "seat",
+        "volvo",
+        "kia",
+        "honda",
+        "buick",
+        "subaru",
+        "lexus",
+        "hyundai",
+        "volkswagen",
+        "nissan",
+        "infiniti",
+        "gmc",
+        "cadillac",
+        "dodge",
+        "jeep",
+        "peugeot",
+        "land rover",
+        "fiat"
+      ]
+    },
+    {
+      "name": "capital cities",
+      "reports": [
+        {"name": "popularity", "unit": ["percent"], "multiplier": 1, "range": [1, 200] },
+        {"name": "cost of living", "unit": ["dollar", "percent"], "multiplier": 10, "range": [100, 1000] },
+        {"name": "polution", "unit": ["percent"], "multiplier": 1, "range": [1, 100] },
+        {"name": "population", "unit": ["percent"], "multiplier": 10000, "range": [10, 2000] },
+        {"name": "congestion", "unit": ["percent"], "multiplier": 1, "range": [1, 100] },
+        {"name": "median salary",  "unit": ["dollar", "percent"], "multiplier": 1000, "range": [10, 100] }
+      ],
+      "list": [
+        "Manila",
+        "Warsaw",
+        "New Dehli",
+        "Bangkok",
+        "Moscow",
+        "Washington, D.C.",
+        "Paris",
+        "Berlin",
+        "Prague",
+        "Kyiv",
+        "London",
+        "Abu Dabi",
+        "Buenos Aires",
+        "Nassau",
+        "Brussels",
+        "Brasilia",
+        "Ottawa",
+        "Tokyo",
+        "Santiago",
+        "Copenhagen",
+        "Cairo",
+        "Helsinki",
+        "Budapest",
+        "Reykjavik",
+        "Dublin",
+        "Baghdad",
+        "Jakarta",
+        "Rome",
+        "Kuala Lumpur",
+        "Mexico City",
+        "Amsterdam",
+        "Wellington",
+        "Oslo",
+        "Pyongyang",
+        "Lima",
+        "Dakar",
+        "Bratislava",
+        "Seoul",
+        "Bern"
+      ]
+    },
+    {
+      "name": "fruit",
+      "reports": [
+        {"name": "popularity", "unit": ["percent"], "multiplier": 1, "range": [1, 200] }
+      ],
+      "list": [
+        "apples",
+        "bananas",
+        "oranges",
+        "grapes",
+        "tangerines",
+        "mangos",
+        "plums",
+        "strawberries",
+        "blueberries",
+        "raspberries",
+        "pinaples",
+        "peaches",
+        "pomelon",
+        "pears",
+        "watermelon"
+      ]
+    },
+    {
+      "name": "fast_food_chains",
+      "reports": [
+        {"name": "popularity", "unit": ["percent"], "multiplier": 1, "range": [1, 200] },
+        {"name": "average salary",  "unit": ["dollar", "percent"], "multiplier": 1000, "range": [10, 20] }
+      ],
+      "list": [
+        "McDonald's",
+        "KFC",
+        "Pizza Hut",
+        "Kenny Rogers",
+        "Jollibee",
+        "Burger King",
+        "Domino's Pizza",
+        "Taco Bell",
+        "Wendy's",
+        "Papa John's Pizza",
+        "Shakey's",
+        "Chowking",
+        "Mang Inasal",
+        "Zark's"
+      ]
+    },
+    {
+      "name": "social_networs",
+      "reports": [
+        {"name": "popularity", "unit": ["percent"], "multiplier": 1, "range": [1, 100] },
+        {"name": "users", "unit": ["number"], "multiplier": 1000000, "range": [1, 1000] },
+        {"name": "market value", "unit": ["dollar", "percent"], "multiplier": 1000000000, "range": [1, 500] }
+      ],
+      "list": [
+        "facebook",
+        "google+",
+        "linkedin",
+        "myspace",
+        "about.me",
+        "friendster",
+        "twitter",
+        "tumblr"
+      ]
+    },
+    {
+      "name": "tech_companies",
+      "reports": [
+        {"name": "popularity", "unit": ["percent"], "multiplier": 1, "range": [1, 100] },
+        {"name": "market value", "unit": ["dollar", "percent"], "multiplier": 1000000000, "range": [1, 500] }
+      ],
+      "list": [
+        "facebook",
+        "google",
+        "yahoo",
+        "alibaba",
+        "amazon",
+        "lazada",
+        "apple",
+        "intel",
+        "samsung",
+        "lg",
+        "sony",
+        "huawei",
+        "Hewlett-Packard",
+        "IBM",
+        "Microsoft",
+        "Oracle",
+        "Cisco",
+        "eBay",
+        "Texas Instruments"
+      ]
+    }
+  ],
+  "graph_types": [
+    {"type": "rising", "synonyms": ["grow", "going up", "climb", "increase"]},
+    {"type": "falling", "synonyms": ["decline", "drop", "fall", "gravitate", "sink"]},
+    {"type": "fluctuating", "synonyms": ["vary", "veer", "alternate"]},
+    {"type": "steady", "synonyms": ["solid", "constant"]},
+    {"type": "plunging", "synonyms": ["fall", "drop", "plummet"]},
+    {"type": "surging", "synonyms": ["rise"]}
+  ]
+}

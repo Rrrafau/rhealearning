@@ -865,7 +865,6 @@ class Dashboard extends React.Component {
 
 function mapStateToProps(state) {
   const { profile } = state.auth
-  const { userResults } = state.tests
   return { profile };
 }
 

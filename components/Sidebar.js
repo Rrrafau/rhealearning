@@ -57,6 +57,20 @@ class SidebarContainer extends React.Component {
               <div className="sidebar-nav-container">
                 <ul style={{marginBottom:0}} className="sidebar-nav">
                   <li style={{display:'block',pointerEvents:'all',height:45}} tabIndex="-1" className="sidebar-nav-item">
+                    <Link to="/reportwriting" style={{height:45}}>
+                      <span className="icon-fontello-chart-bar-1 rubix-icon"></span>
+                      <span className="name">Report Writing <i>(beta)</i></span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <div className="sidebar-nav-container">
+                <ul style={{marginBottom:0}} className="sidebar-nav">
+                  <li style={{display:'block',pointerEvents:'all',height:45}} tabIndex="-1" className="sidebar-nav-item">
                     <Link to="/news" style={{height:45}}>
                       <span className="icon-fontello-newspaper-1 rubix-icon"></span>
                       <span className="name">News Feed <Badge>1</Badge></span>
