@@ -168,7 +168,7 @@ class Results extends React.Component {
 
   render() {
     const { results, slides, wordPacket, points } = this.props
-    
+
     return (
       <div>
         <PanelContainer noOverflow>
@@ -193,8 +193,7 @@ class Results extends React.Component {
                                 if(word.answer !== word.word) {
                                   return (
                                     <span key={w+'_'+s}>
-                                      <span className="result-incorrect">{word.answer || 'no answer given'}</span>
-                                      <span className="result-correction"> instead of </span>
+                                      <span className="result-incorrect">{word.answer || 'no answer given'}</span>&nbsp;
                                       <span className="result-correct">{word.value} </span>
                                     </span>
                                   )
