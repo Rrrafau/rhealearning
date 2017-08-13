@@ -4,7 +4,7 @@ exports.saveResult = saveResult;
 
 var promisedMongo = require('promised-mongo');
 
-var db = promisedMongo('mongodb://139.162.43.212/rheaenglish', ['results']);
+var db = promisedMongo('mongodb://176.58.110.232/rheaenglish', ['results']);
 
 function getResult(_id) {
   return db.results.findOne({ _id: promisedMongo.ObjectId(_id) });
